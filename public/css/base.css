@@ -1,0 +1,17 @@
+.container{
+    max-width: 1500px;
+}
+.btn-lg{
+    border-radius: 2rem;
+}
+.imageappart{
+    height: 200px;
+    width: 100%;
+    display: block;
+}
+.bdr{
+    border-radius :1.5rem;
+}
+ .ronde{
+     border-radius:50%;
+ }
