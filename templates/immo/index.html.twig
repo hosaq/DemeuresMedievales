@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+{%block stylesheets %}
+    <link rel="stylesheet" type="text/css" href="css/base.css">
+{% endblock %}
+{% block title %}Nos demeures{% endblock %}
+
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+
+
+<div class="container">
+    <h2 class="mt-5 ">Nos demeures récentes...</h2>
+    <div class="row mt-5">
+        {%for bien in biens%}
+
+            <div class="col-md-4 mb-5">
+                <div class="card bg-light bg-3">
+                    <div class="card-header text-center">
+                        3 chambres,
+                        <strong>{{bien.prix}}€ / nuit</strong><br>
+                        <small>Pas encore noté</small>
+                        <img alt="image de l'appartement" class="imageappart" src="{{bien.imageLarge}}">
+                        <div class="card-body">
+                            <h4 class="card-title">
+                                {{bien.titre}} !
+                            </h4>
+                            <p class="card-text">{{bien.introduction}}</p>
+                            <a class="btn btn-secondary bdr" href="{{path('cette_annonce',{'slug':bien.slug})}}">En savoir plus !</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}

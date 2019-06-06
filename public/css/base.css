@@ -1,5 +1,7 @@
 .container{
     max-width: 1500px;
+    margin-top: 30px;
+    margin-bottom: 30px;
 }
 .btn-lg{
     border-radius: 2rem;
@@ -14,4 +16,7 @@
 }
  .ronde{
      border-radius:50%;
+ }
+ .btn-arrondi{
+    border-radius: 2rem;
  }
