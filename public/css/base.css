@@ -20,3 +20,23 @@
  .btn-arrondi{
     border-radius: 2rem;
  }
+ .mt-10{
+    margin-top: 50px;
+}
+.alert-danger {
+    color: #fdf9f9;
+    background-color: #fd744e;
+    border-color: #f7966f;
+}
+.navbar-nav {
+    padding-left: 5%;
+}
+.avatar-mini{
+    max-width: 30px;
+    max-height:30px;
+    
+}
+.dropdown-item{
+    color:#e75a0e;
+}
+    

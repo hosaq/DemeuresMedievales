@@ -52,8 +52,9 @@ class ImmoController extends AbstractController
         if($form->isSubmitted() && $form->isValid()){
             foreach($annonce->getImages() as $image){
                 $image->setImmo($annonce);
+                $manager->persist($image);
             }
-
+            $annonce->setProprio($this->getUser());
             $manager->persist($annonce);
             $manager->flush();
             $this->addFlash(

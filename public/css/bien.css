@@ -11,3 +11,6 @@ div.titre h1, div.titre p{
 div.carousel-caption{
     text-shadow: 3px 3px 3px rgba(0,0,0,0.5);
 }
+.mt-6{
+    margin-top: 50px;
+}

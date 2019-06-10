@@ -1,0 +1,18 @@
+<div class="col-md-4 mb-5">
+    <div class="card bg-light bg-3">
+        <div class="card-header text-center">
+            3 chambres,
+            <strong>{{bien.prix}}€ / nuit</strong><br>
+            <small>Pas encore noté</small>
+            <img alt="image de l'appartement" class="imageappart" src="{{bien.imageLarge}}">
+            <div class="card-body">
+                <h4 class="card-title">
+                    {{bien.titre}}
+                    !
+                </h4>
+                <p class="card-text">{{bien.introduction}}</p>
+                <a class="btn btn-secondary bdr" href="{{path('cette_annonce',{'slug':bien.slug})}}">En savoir plus !</a>
+            </div>
+        </div>
+    </div>
+</div>

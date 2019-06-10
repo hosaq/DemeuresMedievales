@@ -11,70 +11,75 @@
         <h1>{{bien.titre}}</h1>
         <p>{{bien.introduction}}</p>
         <p class="h2">
-            <strong>{{bien.surface}}m²</strong> pour <strong>{{bien.prix}}&euro;
-            </strong> par nuit
+            <strong>{{bien.surface}}m²</strong>
+            pour
+            <strong>{{bien.prix}}&euro;
+            </strong>
+            par nuit
         </p>
-        <a href="#" class="btn btn-primary btn-arrondi">Réserver !</a>
+        <a class="btn btn-primary btn-arrondi" href="#">Réserver !</a>
     </div>
 </div>
-<div class="container">
+<div class="container mt-6">
     <div class="row">
         <div class="col-md-8 mb-3">
             {{bien.contenu|raw}}
 
-    <div class="carousel slide mt-5" data-ride="carousel" id="carouselExampleIndicators">
-        <ol class="carousel-indicators">
-            {% for image in bien.images %}
-                <li {% if loop.first %}class="active"{% endif %} data-slide-to="{{loop.index0}}" data-target="#carouselExampleIndicators"></li>
-            {% endfor %}
-            </ol>
-        <div class="carousel-inner ">
-            {% for image in bien.images %}
-                <div class="carousel-item {% if loop.first %}active{% endif %}">
-                    <img alt="..." class="d-block w-100" src="{{image.url}}">
+            <div class="carousel slide mt-5" data-ride="carousel" id="carouselExampleIndicators">
+                <ol class="carousel-indicators">
+                    {% for image in bien.images %}
+                        <li {% if loop.first %} class="active" {% endif %} data-slide-to="{{loop.index0}}" data-target="#carouselExampleIndicators"></li>
+                    {% endfor %}
+                </ol>
+                <div class="carousel-inner ">
+                    {% for image in bien.images %}
+                        <div class="carousel-item {% if loop.first %}active{% endif %}">
+                            <img alt="..." class="d-block w-100" src="{{image.url}}">
 
-                    <div class="carousel-caption d-none d-md-block">
-                        <h5>{{bien.titre}}</h5>
-                        <p>{{image.legende}}</p>
-                    </div>
+                            <div class="carousel-caption d-none d-md-block">
+                                <h5>{{bien.titre}}</h5>
+                                <p>{{image.legende}}</p>
+                            </div>
 
+                        </div>
+                    {% endfor %}
                 </div>
-            {% endfor %}
-        </div>
-        <a class="carousel-control-prev" data-slide="prev" href="#carouselExampleIndicators" role="button">
-            <span aria-hidden="true" class="carousel-control-prev-icon"></span>
-            <span class="sr-only">Previous</span>
-        </a>
-        <a class="carousel-control-next" data-slide="next" href="#carouselExampleIndicators" role="button">
-            <span aria-hidden="true" class="carousel-control-next-icon"></span>
-            <span class="sr-only">Next</span>
-        </a>
-    </div>
+                <a class="carousel-control-prev" data-slide="prev" href="#carouselExampleIndicators" role="button">
+                    <span aria-hidden="true" class="carousel-control-prev-icon"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next" data-slide="next" href="#carouselExampleIndicators" role="button">
+                    <span aria-hidden="true" class="carousel-control-next-icon"></span>
+                    <span class="sr-only">Next</span>
+                </a>
+            </div>
 
 
         </div>
         <div class="col">
             <div class="row">
                 <div class="col-4">
-                    <img alt="propriétaire" src="https://via.placeholder.com/64">
+                    <img alt="propriétaire" src="{{bien.proprio.avatar}}" class='ronde'>
                 </div>
                 <div class="col">
-                    <h3>Joseph Dupond</h3>
-                    <span class="badge badge-primary">3 annonces</span>
+                    <a href="{{path('membre_afficher',{slug:bien.proprio.slug})}}" class="text-warning">
+                        <h3>{{bien.proprio.identite}} </h3>
+                    </a>
+                    <span class="badge badge-primary">{{bien.proprio.immos|length}}
+                        annonces</span>
+                    {% if bien.proprio is same as(app.user) %}
+                        <div class="mt-3">
+                            <a href="{{path('modifier_annonce',{slug:bien.slug})}}" class="btn btn-primary mr-2 mb-2">Modifier cette annonce</a>
+                        </div>
+                    {% endif %}
                 </div>
             </div>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam tempore beatae odit cumque impedit voluptate excepturi, aliquid fuga a magni?</p>
-            <p>Esse suscipit eos unde. Quo id cupiditate unde adipisci nobis nam repellendus alias quod omnis delectus vero quibusdam, cum asperiores!</p>
-            <p>Atque deserunt iste eligendi, repudiandae ea totam sunt culpa harum. Explicabo facere sint cumque sit recusandae accusantium consectetur, aliquam quia.</p>
+            <div class="mt-4">
+            {{bien.proprio.description|raw}}
+            </div>
         </div>
     </div>
-</div>
+</div></div>
 
-
-
-
-
-   
-</div>
 
 {% endblock %}

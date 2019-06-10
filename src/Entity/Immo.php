@@ -76,6 +76,12 @@ class Immo
      */
     private $images;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="immos")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $proprio;
+
     public function __construct()
     {
         $this->images = new ArrayCollection();
@@ -222,6 +228,18 @@ class Immo
                 $image->setImmo(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getProprio(): ?User
+    {
+        return $this->proprio;
+    }
+
+    public function setProprio(?User $proprio): self
+    {
+        $this->proprio = $proprio;
 
         return $this;
     }
