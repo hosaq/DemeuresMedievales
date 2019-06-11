@@ -4,6 +4,7 @@ namespace App\DataFixtures;
 
 use Faker\Factory;
 use App\Entity\Immo;
+use App\Entity\Role;
 use App\Entity\User;
 use App\Entity\Image;
 use Doctrine\Bundle\FixturesBundle\Fixture;
@@ -19,6 +20,23 @@ class ImmoFixtures extends Fixture
     public function load(ObjectManager $manager)
     {
         $faker = Factory::create('FR-fr');
+        $photo='https://randomuser.me/api/portraits/men/88.jpg';
+
+    //gestion des roles
+        $adminRole=new Role();
+        $adminRole->setTitre('ROLE_ADMIN');
+        $manager->persist($adminRole);
+    //Utilisateur admin
+    $adminUser=new User;
+    $adminUser->setPrenom('Gil')  
+              ->setNom('Ortega')
+              ->setEmail('ortegagil@gmail.com')
+              ->setIntroduction($faker->sentence())
+              ->setDescription('<p>'.join('</p><p>',$faker->paragraphs(3)).'</p>')
+              ->setHash($this->encoder->encodePassword($adminUser,'password'))
+              ->setAvatar($photo)
+              ->addUserRole($adminRole);
+    $manager->persist($adminUser);
 
     //gestion des utilisateurs
         $users=[];
@@ -67,7 +85,7 @@ class ImmoFixtures extends Fixture
             $immo= new Immo();
 
             $titre=$faker->sentence();
-            $imagelarge="http://placeimg.com/640/360/arch";
+            $imagelarge=$faker->imageUrl();
             $introduction=$faker->paragraph(2);
             $contenu='<p>'.join('</p><p>',$faker->paragraphs(4)).'</p>';
             $proprio=$users[mt_rand(0,count($users)-1)];

@@ -12,6 +12,11 @@
                 </h4>
                 <p class="card-text">{{bien.introduction}}</p>
                 <a class="btn btn-secondary bdr" href="{{path('cette_annonce',{'slug':bien.slug})}}">En savoir plus !</a>
+                {% if bien.proprio is same as(app.user) %}
+                        <div class="mt-3">
+                            <a href="{{path('modifier_annonce',{slug:bien.slug})}}" class="btn btn-primary bdr mr-2 mb-2">Modifier cette annonce</a>
+                        </div>
+                {% endif %}
             </div>
         </div>
     </div>

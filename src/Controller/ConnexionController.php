@@ -12,6 +12,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
@@ -36,6 +37,7 @@ class ConnexionController extends AbstractController
     /**
      * Deconnexion
      * @Route("/deconnexion", name="connexion_logout")
+     * @IsGranted("ROLE_USER")
      * @return void
      */
     public function logout()
@@ -75,6 +77,7 @@ class ConnexionController extends AbstractController
     /**
      * Affiche le formulaire d'inscription pour modification
      * @Route("/modifier/profil", name="modifier_compte")
+     * @IsGranted("ROLE_USER")
      * @return Response
      */
     public function modificationCompte(Request $request,ObjectManager $manager)
@@ -100,6 +103,7 @@ class ConnexionController extends AbstractController
     /**
      * modification du mot de passe
      * @Route("/modifier/mdp", name="modification_mdp")
+     * @IsGranted("ROLE_USER")
      * @return Response
      */
     public function modifierMdp(Request $request,ObjectManager $manager,

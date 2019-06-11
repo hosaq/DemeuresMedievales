@@ -77,6 +77,13 @@
             <div class="mt-4">
             {{bien.proprio.description|raw}}
             </div>
+            {% if bien.proprio is same as(app.user) %}
+            <div class="mt-10" style="text-align:center">
+                <a href="{{path('supprimer_annonce',{slug:bien.slug})}}" onclick="return confirm(`Êtes-vous sûr(e) de vouloir supprimer l'annonce : {{bien.titre}} ?`)"
+                class="btn btn-danger ">Supprimer cette annonce</a>
+            </div>
+            {% endif %}
+            
         </div>
     </div>
 </div></div>

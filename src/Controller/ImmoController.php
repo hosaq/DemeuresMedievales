@@ -9,6 +9,8 @@ use App\Repository\ImmoRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class ImmoController extends AbstractController
@@ -42,6 +44,7 @@ class ImmoController extends AbstractController
      * creer une annonce
      * 
      * @Route("/creer/annonce", name="nouveau_bien")
+     * @IsGranted("ROLE_USER")
      */
     public function creer(Request $request, ObjectManager $manager){
         $annonce=new Immo();
@@ -79,6 +82,9 @@ class ImmoController extends AbstractController
      * edite une annonce
      * 
      * @Route("/annonce/{slug}/editer", name="modifier_annonce")
+     * @Security("is_granted('ROLE_USER') and user === annonce.getProprio() or is_granted('ROLE_ADMIN')",
+     * message="Cette annonce ne vous appartient pas, vous ne pouvez pas la modifier." )
+     * 
      */
     public function editer(Immo $annonce,Request $request, ObjectManager $manager){
        
@@ -108,6 +114,33 @@ class ImmoController extends AbstractController
         ]);
 
 
+    }
+
+    /**
+     * supprime une annonce
+     * 
+     * @Route("/annonce/{slug}/supprimer", name="supprimer_annonce")
+     * @Security("is_granted('ROLE_USER') and user === annonce.getProprio() or is_granted('ROLE_ADMIN')",
+     * message="Cette annonce ne vous appartient pas, vous ne pouvez pas la modifier." )
+     * 
+     */
+    public function delete(Immo $annonce, ObjectManager $manager){
+       
+
+            $manager->remove($annonce);
+            $manager->flush();
+            $this->addFlash(
+                'success',
+                "L'annonce <strong>{$annonce->getTitre()} </strong>a bien été supprimée."
+            );
+            $user=$this->getUser();
+            return $this->redirectToRoute('membre_afficher',[
+                'slug'=>$user->getSlug()
+            ]);
+        
+
+
+        
     }
 
 
