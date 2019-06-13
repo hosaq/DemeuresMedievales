@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+{% block stylesheets %}
+    <link rel="stylesheet" type="text/css" href="/css/base.css">
+{% endblock %}
+{% block title %}Demeures Médiévales-Page non autorisée{% endblock %}
+
+{% block body %}
+<div class="container mt-5 " style="padding-left:20%">
+<h1>Cette page ne vous est pas autorisée ! </h1>
+<p>Vous pouvez retourner à l'accueil ou voir nos dernières annonces !</p>
+<a href="{{path('homepage')}}" class="btn btn-primary">Retour à l'accueil</a>
+<a href="{{path('les_annonces')}}" class="btn btn-success">Nos annonces</a>
+    
+</div>
+
+
+{% endblock %}

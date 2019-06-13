@@ -1,0 +1,66 @@
+{% extends 'base.html.twig' %}
+{%block stylesheets %}
+    <link rel="stylesheet" type="text/css" href="/css/base.css">
+    <link rel="stylesheet" type="text/css" href="/css/reserve.css">
+{% endblock %}
+{% block title %}Demeures-Réserver{% endblock %}
+{% form_theme form '/elements/_formimages.html.twig' %}
+{% block body %}
+<div class="titre" style="background-image:url('{{annonce.imagelarge}}') ">
+    <div class="container">
+        <h1>Réservez <span class="chevron">&#60;&#60;</span>{{annonce.titre}}<span class="chevron">
+        &#62;&#62;</span></h1>
+    </div>
+</div>
+<div class="container">
+    <div class="alert alert-light">
+        <p class="presente ">Vous êtes sur le point de réserver le bien de
+            <strong>{{annonce.proprio.identite}}
+            </strong>, dites-nous tout, on s'occupe du reste !</p>
+        <h1>Choisissez vos dates de réservation :</h1>
+        {{form_start(form)}}
+        <div class="row mt-3">
+            <div class="col-6">
+                <p>Choisissez la date à laquelle vous désirez arriver :</p>
+                <div class="largeform mt-3">
+                    {{form_row(form.dateentree)}}
+                </div>
+            </div>
+            <div class="col-6">
+                <p>Choisissez la date à laquelle vous désirez quitter les lieux :</p>
+                <div class="largeform mt-3">
+                    {{form_row(form.datesortie)}}
+                </div>
+            </div>
+        </div>
+        <div class="row ">
+            <div class="col-10 mt-4">
+                <p>Un commentaire :</p>
+                <div class="commentaire mt-3">
+                    {{form_row(form.commentaire)}}
+                </div>
+            </div>
+        </div>
+        <h4 class="mt-4">Montant du séjour :
+            <span id="montant">...</span>
+            &euro; (
+            <span id="nuits">3</span>
+            nuits à
+            {{annonce.prix}}
+            &euro; la nuit. )</h4>
+            
+        <button class="btn btn-success ml-4 mt-4 bdr" type="submit">Je réserve !
+        </button>
+        {{form_end(form)}}
+        
+    </div>
+</div>
+
+
+{% endblock %}
+
+
+
+{% block javascripts %}
+<script src='/js/ajoutimage.js'></script>
+{% endblock %}

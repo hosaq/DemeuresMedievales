@@ -7,6 +7,7 @@ use App\Entity\Immo;
 use App\Entity\Role;
 use App\Entity\User;
 use App\Entity\Image;
+use App\Entity\Reservation;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
@@ -107,7 +108,27 @@ class ImmoFixtures extends Fixture
                            ->setImmo($immo);
                     $manager->persist($image);
                 }
+            //Gestion des reservations
+            for($j=1;$j<= mt_rand(0,10);$j++){
+                $reservation=new Reservation();
+                $creele=$faker->dateTimeBetween('-6 months');
+                $dateentree=$faker->dateTimeBetween('-3 months');
+                $duree=mt_rand(3, 10);
+                $datesortie=(clone $dateentree)->modify("+$duree days");
+                $montant=$immo->getPrix()*$duree;
+                $booker=$users[mt_rand(0, count($users)-1)];
+                $commentaire=$faker->paragraph();
 
+                $reservation->setBooker($booker)
+                            ->setAnnonce($immo)
+                            ->setDateentree($dateentree)
+                            ->setDatesortie($datesortie)
+                            ->setCreele($creele)
+                            ->setMontant($montant)
+                            ->setCommentaire($commentaire);
+                $manager->persist($reservation);
+            
+            }
              $manager->persist($immo);
 
         }

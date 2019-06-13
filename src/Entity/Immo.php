@@ -82,9 +82,35 @@ class Immo
      */
     private $proprio;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Reservation", mappedBy="annonce")
+     */
+    private $reservations;
+
     public function __construct()
     {
         $this->images = new ArrayCollection();
+        $this->reservations = new ArrayCollection();
+    }
+
+    /**
+     * permet d'obtenir un tableau des dates indisponibles pour cette annonce
+     * @return array
+     */
+    public function joursReserves(){
+        $joursReserves=[];
+        foreach($this->reservations as $reservation){
+            $resultat=range(
+                $reservation->getDateentree()->getTimestamp(),
+                $reservation->getDatesortie()->getTimestamp(),
+                24*60*60
+            );
+            $jours=array_map(function($dayTimestamp){
+                return new\DateTime(date('Y-m-d',$dayTimestamp));
+            },$resultat);
+            $joursReserves=array_merge($joursReserves,$jours);
+        }
+        return $joursReserves;
     }
 
     /**
@@ -240,6 +266,37 @@ class Immo
     public function setProprio(?User $proprio): self
     {
         $this->proprio = $proprio;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Reservation[]
+     */
+    public function getReservations(): Collection
+    {
+        return $this->reservations;
+    }
+
+    public function addReservation(Reservation $reservation): self
+    {
+        if (!$this->reservations->contains($reservation)) {
+            $this->reservations[] = $reservation;
+            $reservation->setAnnonce($this);
+        }
+
+        return $this;
+    }
+
+    public function removeReservation(Reservation $reservation): self
+    {
+        if ($this->reservations->contains($reservation)) {
+            $this->reservations->removeElement($reservation);
+            // set the owning side to null (unless already changed)
+            if ($reservation->getAnnonce() === $this) {
+                $reservation->setAnnonce(null);
+            }
+        }
 
         return $this;
     }

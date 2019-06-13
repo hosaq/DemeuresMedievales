@@ -1,0 +1,100 @@
+{% extends 'base.html.twig' %}
+{%block stylesheets %}
+    <link rel="stylesheet" type="text/css" href="/css/base.css">
+    <link rel="stylesheet" type="text/css" href="/css/reserve.css">
+{% endblock %}
+{% block title %}Demeures-Réservervation{% endblock %}
+{% set loc=reservation.annonce %}
+{% set proprio=loc.proprio %}
+{% block body %}
+
+<div class="container">
+    <h1>Votre réservation (n°{{reservation.id}})</h1>
+    {% if app.request.query.get('withAlert') %}
+        <div class="alert alert-success ">
+            <h5 class="alert-heading f5">Votre réservation de <span class="chevronpt">&#60;&#60;</span>
+             {{loc.titre}} <span class="chevronpt">&#62;&#62;</span>
+            auprès de <span class="chevronpt">&#60;&#60;</span>{{proprio.identite}}<span class="chevronpt">&#62;&#62;</span> a bien été prise en compte, veuillez en retrouver
+             ici les détails.</h5>
+        </div>
+    {% endif %}
+
+    <div class="row ">
+        <div class="col-6">
+            <div class="">
+                <h2>Détails</h2>
+                <div class="col-11 alert alert-light ">
+                <dl class="row">
+                
+                    <dt class="col-md-4">Numéro :</dt>
+                    <dd class="col-md-8">n°{{reservation.id}}</dd>
+                    <dt class="col-md-4">Réservée le :</dt>
+                    <dd class="col-md-8">{{reservation.creele|date('d/m/Y')}}</dd>
+                    <dt class="col-md-4">Date d'arrivée :</dt>
+                    <dd class="col-md-8"><strong>{{reservation.dateentree|date('d/m/Y')}}</strong></dd>
+                    <dt class="col-md-4">Date de départ :</dt>
+                    <dd class="col-md-8"><strong>{{reservation.datesortie|date('d/m/Y')}}</strong></dd>
+                    <dt class="col-md-4">Nombre de nuits :</dt>
+                    <dd class="col-md-8">{{reservation.duree}} nuits</dd>
+                    <dt class="col-md-4">Prix par nuit :</dt>
+                    <dd class="col-md-8">{{loc.prix}} &euro;</dd>
+                    <dt class="col-md-4">Montant total :</dt>
+                    <dd class="col-md-8">{{reservation.montant}} &euro;</dd>
+                    <dt class="col-md-4">Votre commentaire :</dt>
+                    <dd class="col-md-8">
+                        <span class="chevronpt">&#60;&#60;</span>
+                        {{reservation.commentaire}}<span class="chevronpt">&#62;&#62;</span>
+                    </dd>
+                </dl>
+                
+                <hr>
+                <h2 class="alert-heading">Votre hôte</h2>
+                <div class="row">
+                    <div class="col-3">
+                        <img src="{{proprio.avatar}}" alt="avatar de {{proprio.identite}}" class="avatar ronde">
+                    </div>
+                    <div class="col-9">
+                        
+                            <a href="{{path('membre_afficher',{slug:proprio.slug})}}" class="text-warning">
+                        <h3>{{proprio.identite}} </h3>
+                    </a>
+                    <span class="badge badge-primary">{{proprio.immos|length}}
+                        annonces</span>
+                     <p><span class="chevronpt">&#60;&#60;</span>
+                        {{proprio.introduction}}<span class="chevronpt">&#62;&#62;</span></p>   
+                        
+                    </div>
+                    <a class="btn btn-secondary bdr mt-5" href="{{path('membre_afficher',{slug:proprio.slug})}}">Plus de détails !</a>
+
+                </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="col-6 mt-5">
+            <div class="alert alert-light">
+                <h3 class="alert-heading mb-4">Votre hébergement : 
+                <a href="{{path('cette_annonce',{'slug':loc.slug})}}" class="text-warning pluspt">
+                <span class="chevronpt">&#60;&#60;</span> 
+                {{loc.titre}} <span class="chevronpt">&#62;&#62;</span></a></h3>
+                <img src="{{loc.imagelarge}}" alt="image de {{loc.titre}}" class="img-fluid ml-2">
+                <h3 class="card-title"></h3>
+                <p class="card-text mb-5">{{loc.introduction}}</p>
+                <a class="btn btn-secondary bdr" href="{{path('cette_annonce',{'slug':loc.slug})}}">Plus de détails !</a>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+
+
+{% endblock %}
+
+
+
+{% block javascripts %}
+<script src='/js/ajoutimage.js'></script>
+{% endblock %}
