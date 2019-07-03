@@ -2,6 +2,7 @@
 {%block stylesheets %}
     <link rel="stylesheet" type="text/css" href="/css/base.css">
     <link rel="stylesheet" type="text/css" href="/css/reserve.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css" />
 {% endblock %}
 {% block title %}Demeures-Réserver{% endblock %}
 {% form_theme form '/elements/_formimages.html.twig' %}
@@ -41,13 +42,13 @@
                 </div>
             </div>
         </div>
-        <h4 class="mt-4">Montant du séjour :
-            <span id="montant">...</span>
+        <h5 class="mt-4">Montant du séjour :
+            <span id="montant"> &nbsp;&nbsp;&nbsp;</span>
             &euro; (
-            <span id="nuits">3</span>
+            <span id="nuits"> &nbsp;&nbsp;&nbsp;</span>
             nuits à
             {{annonce.prix}}
-            &euro; la nuit. )</h4>
+            &euro; la nuit. )</h5>
             
         <button class="btn btn-success ml-4 mt-4 bdr" type="submit">Je réserve !
         </button>
@@ -62,5 +63,34 @@
 
 
 {% block javascripts %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
 <script src='/js/ajoutimage.js'></script>
+<script>
+    $(document).ready(function(){
+        $('#reservation_dateentree,#reservation_datesortie').datepicker({
+            format:'dd/mm/yyyy',
+            datesDisabled:[
+                {% for jour in annonce.joursReserves %}
+                    "{{ jour.format('d/m/Y') }}",
+                {% endfor %}
+            ],
+            startDate:new Date()
+        });
+        $('#reservation_dateentree,#reservation_datesortie').on('change',calculMontant);
+    });
+
+    function calculMontant(){
+        let datesortie=new Date($('#reservation_datesortie').val().replace(/(\d+)\/(\d+)\/(\d{4})/,'$3-$2-$1'));
+        let dateentree=new Date($('#reservation_dateentree').val().replace(/(\d+)\/(\d+)\/(\d{4})/,'$3-$2-$1'));
+        if((dateentree && datesortie) && (dateentree<datesortie)){
+            let interval = datesortie.getTime()-dateentree.getTime();
+            let jour=24*60*60*1000;
+            let nbjours=interval/jour;
+            let montant=nbjours*{{annonce.prix}};
+            $('#nuits').text(nbjours);
+            $('#montant').text(montant.toLocaleString('fr-FR'));
+        }
+    }
+</script>
+
 {% endblock %}

@@ -1,0 +1,43 @@
+<div class="col-md-4 mb-3">
+    <div class="card bg-light bg-3">
+        <div class="card-header text-center">
+             <a class="text-warning" href="{{path('cette_annonce',{'slug':loc.slug})}}" 
+             style="color:{{couleur}}"><h4 class="card-title">{{loc.titre}}</h4></a>
+            <p class="mb-4">
+            {% if comment and comment !="aucun"%}
+                {% include 'elements/notation.html.twig' with {'note': comment.note } %}
+            {% elseif comment=="aucun" %}
+                <small></small>
+            {% else %}
+                <small>Pas encore noté.</small>
+            {% endif %}
+            </p>
+            <img alt="image de l'appartement" class="imageappart" src="{{loc.imageLarge}}">
+            <div class="card-body">
+               
+             <div class="col-12 alert alert-light ">
+                <dl class="row">
+                    <dt class="col-md-6">Réservée le :</dt>
+                    <dd class="col-md-6">{{reservation.creele|date('d/m/Y')}}</dd>
+                    <dt class="col-md-6">Date d'arrivée :</dt>
+                    <dd class="col-md-6"><strong>{{reservation.dateentree|date('d/m/Y')}}</strong></dd>
+                    <dt class="col-md-6">Date de départ :</dt>
+                    <dd class="col-md-6"><strong>{{reservation.datesortie|date('d/m/Y')}}</strong></dd>
+                    <dt class="col-md-6">Nombre de nuits :</dt>
+                    <dd class="col-md-6">{{reservation.duree}} nuits</dd>
+                    <dt class="col-md-6">Prix par nuit :</dt>
+                    <dd class="col-md-6">{{loc.prix}} &euro;</dd>
+                    <dt class="col-md-6">Montant total :</dt>
+                    <dd class="col-md-6">{{reservation.montant}} &euro;</dd>
+                    
+                </dl>
+                </div>
+                <div class="mt-4">
+                            <a href="{{path('reservation_voir',{id:reservation.id})}}"
+                             style="background-color:{{couleur}};border-color:{{couleur}}" class="btn btn-secondary bdr mr-2 mb-2">Voir cette réservation</a>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>

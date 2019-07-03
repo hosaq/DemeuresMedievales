@@ -47,4 +47,15 @@ class ImmoRepository extends ServiceEntityRepository
         ;
     }
     */
+    public function bonsGites($nb=3){
+        return $this->createQueryBuilder('a')
+                    ->select('a as annonce','AVG(c.note) as notemoyenne')
+                    ->join('a.commentaires','c')
+                    ->groupBy('a')
+                    ->orderBy('notemoyenne','DESC')
+                    ->setMaxResults($nb)
+                    ->getQuery()
+                    ->getResult();
+
+    }
 }

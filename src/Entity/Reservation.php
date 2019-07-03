@@ -34,12 +34,14 @@ class Reservation
     /**
      * @ORM\Column(type="datetime")
      * @Assert\Date(message="Attention, la date d'arrivée doit-être au bon format.")
+     * @Assert\GreaterThan("today",message="La date d'arrivée doit-être ultérieure à celle d'aujourd'hui !")
      */
     private $dateentree;
 
     /**
      * @ORM\Column(type="datetime")
      * @Assert\Date(message="Attention, la date de sortie doit-être au bon format.")
+     * @Assert\GreaterThan(propertyPath="dateentree",message="La date de sortie doit-être ultérieure à celle d'arrivée !")
      */
     private $datesortie;
 

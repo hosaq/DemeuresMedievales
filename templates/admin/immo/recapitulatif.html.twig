@@ -1,0 +1,52 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Annonces{% endblock %}
+
+{% block body %}
+<style>
+    
+</style>
+
+<div class="container-fluid">
+    <h2 class="my-5">Gestion des annonces</h2>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Titre</th>
+                <th>Tarif/Jour</th>
+                <th>Auteur</th>
+                <th>Réservations</th>
+                <th>Note</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for annonce in pagination.data %}
+            <tr>
+                <td>{{annonce.id}}</td>
+                <td>{{annonce.titre}}</td>
+                <td>{{annonce.prix|number_format(0,',',' ')}} &euro;</td>
+                <td>
+                    <img src="{{annonce.proprio.avatar}}" alt="" class="avatar-mini ronde">
+                    {{annonce.proprio.nom}}
+                </td>
+                <td>{{annonce.reservations|length}}</td>
+                <td>
+                    {% include 'elements/notation.html.twig' with {'note': annonce.moyenne } %}
+                </td>
+                <td>
+                    <a href="{{path('moderer_annonce',{slug:annonce.slug})}}" class="btn btn-success"><i class="fas fa-edit"></i></a>
+                    <a href="{{path('admin_supprimer_annonce',{slug:annonce.slug})}}" class="btn btn-danger"><i class="fas fa-trash"></i></a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    
+       {% include 'admin/elements/pagination.html.twig' with {'route':'admin_annonces'} %}
+    
+     
+    
+</div>
+{% endblock %}

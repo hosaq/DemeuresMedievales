@@ -43,7 +43,7 @@
                     <dt class="col-md-4">Votre commentaire :</dt>
                     <dd class="col-md-8">
                         <span class="chevronpt">&#60;&#60;</span>
-                        {{reservation.commentaire}}<span class="chevronpt">&#62;&#62;</span>
+                        {{reservation.commentaire|default("Aucun commentaire")}}<span class="chevronpt">&#62;&#62;</span>
                     </dd>
                 </dl>
                 
@@ -69,6 +69,43 @@
                 </div>
                 </div>
 
+            </div>
+            <div class="alert alert-light col-11 mt-5">
+            <h3 class="alert-heading">Votre avis compte !</h3>
+            {% if date()> date(reservation.datesortie) %}
+                {% set commentaire=loc.obtenircommentaireAuteur(reservation.booker) %}
+                {% if commentaire is not null %}
+                    <div class="row bg-light rounded mt-3 py-3 px-3">
+                        <div class="col-1">
+                            <div class="">
+                                <img src="{{commentaire.auteur.avatar}}" alt="avatar de {{commentaire.auteur.identite}}" class="avatard ronde">
+                            </div>
+                        </div>
+                        <div class="col-5">
+                            <a href="{{path('membre_afficher',{slug:commentaire.auteur.slug})}}" class="text-warning">
+                            <h5>{{commentaire.auteur.identite}} </h5>
+                            </a>
+                            <h5 class="mt-2" style="display: inline-block;">Note : <strong></strong></h5>
+                            {% include 'elements/notation.html.twig' with {'note':commentaire.note } %}
+                        </div>
+                        <div class="row bg-light rounded mb-3 py-3 px-3">
+                            <p>{{commentaire.contenu}}</p>
+                        </div>
+                    </div>
+
+                {% elseif app.user==reservation.booker %}
+                    {{form_start(form)}}
+                    {{form_widget(form)}}
+                    <button type="submit" class="btn btn-success bdr">Confirmer !</button>
+                    {{form_end(form)}}
+                {% else %}
+                     <p>La personne qui a réservé n'a pas encore laissé de commentaire.</p>
+                {% endif %}
+            {% else %}
+                <p>Vous pourrez donner
+                 votre avis à la fin de votre séjour.
+                </p>
+            {% endif %}
             </div>
         </div>
         <div class="col-6 mt-5">

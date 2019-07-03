@@ -1,0 +1,53 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Commentaires{% endblock %}
+
+{% block body %}
+<style>
+    
+</style>
+
+<div class="container-fluid">
+    <h2 class="my-5">Gestion des commentaires</h2>
+    <table class="table table-hover ">
+        <thead>
+            <tr class="pm pw">
+                <th>Id</th>
+                <th>Annonce</th>
+                <th>Auteur</th>
+                <th>Date</th>
+                <th>Texte</th>
+                <th>Note</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for commentaire in pagination.data %}
+            <tr class="pm">
+                <td>{{commentaire.id}}</td>
+                <td style="width:20%;overflow:hidden">{{commentaire.annonce.titre}}</td>
+                <td><img src="{{commentaire.auteur.avatar}}" alt="" class="avatar-mini ronde mx-3">
+                    {{commentaire.auteur.identite}}
+                    
+                    
+                </td>
+                <td>{{commentaire.creeLe|date('d/m/Y')}}</td>
+                <td style="width:30%;overflow:hidden">{{commentaire.contenu}}</td>
+                <td>
+                    {% include 'elements/notation.html.twig' with {'note': commentaire.note } %}
+                </td>
+                <td>
+                    <a href="#" class="btn btn-success"><i class="fas fa-edit"></i></a>
+                    <a href="#" class="btn btn-danger"><i class="fas fa-trash"></i></a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    
+        
+    {% include 'admin/elements/pagination.html.twig' with {'route':'admin_commentaires'} %}
+     
+    
+</div>
+{% endblock %}

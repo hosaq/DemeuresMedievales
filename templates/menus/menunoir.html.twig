@@ -35,6 +35,10 @@
                      class="dropdown-item">Créer une annonce
                     </a>
                     <div class="dropdown-divider"></div>
+                    <a href="{{path('les_reservations',{slug:app.user.slug})}}"
+                     class="dropdown-item">Mes réservations
+                    </a>
+                    <div class="dropdown-divider"></div>
                     <a href="{{path('membre_afficher',{slug:app.user.slug})}}" 
                      class="dropdown-item">Ma page
                     </a>

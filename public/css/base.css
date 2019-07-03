@@ -39,4 +39,16 @@
 .dropdown-item{
     color:#e75a0e;
 }
+span.note i{
+    color:rgb(236, 181, 40);
+}
+.avatard{
+    max-height: 40px;
     
+}
+text-warning a{
+    text-decoration: none;
+}
+.petit{
+    font-size: 0.9rem;
+}

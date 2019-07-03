@@ -1,0 +1,109 @@
+{% extends 'admin/base.html.twig' %}
+{%block stylesheets %}
+    <link rel="stylesheet" type="text/css" href="/css/adminbase.css">
+    <link rel="stylesheet" type="text/css" href="/css/bien.css">
+{% endblock %}
+{% block title %}Modérer une annonce{% endblock %}
+{% form_theme form '/elements/_formimages.html.twig' %}
+{% block body %}
+    <div class="titre" style="background-image:url('{{annonce.imageLarge}}') ">
+        <div class="container">
+            <h1>Bandeau nommé "Url de l'image principale"</h1>
+
+
+        </div>
+    </div>
+    <div class="container-fluid">
+        <h4 class="mb-4 mt-5 ml-5">Modérer l'annonce : "{{annonce.titre}}"</h4>
+        <div class="row">
+            <div class="col-6 px-5 ">
+                {{form_start(form)}}
+                {{form_widget(form)}}
+                <ol class="">
+                    {% for image in annonce.images %}
+                        <img alt="..." class="listimg" src="{{image.url}}">
+                    {% endfor %}
+                </ol>
+                <button class="btn btn-primary" type="submit">Modifier cette annonce
+                </button>
+                {{form_end(form)}}
+            </div>
+            <div class="col-6 px-4 bordure">
+                <p class="mt-1 mb-2 pg ">Réservations :</p>
+            <div class="row px-5 ">
+            
+            {% for reservation in annonce.reservations %}
+
+                {% include 'admin/elements/carteadminreservation.html.twig' %}
+
+            {% endfor %}
+            </div>
+
+                <div class="row">
+                    <div class="col-8 px-4 ml-3">
+                        {% if annonce.commentaires|length > 0 %}
+                            <p class="mt-1 mb-4 pg ">Commentaires reçus :</p>
+                            {% if annonce.moyenne>0 %}
+                                <div class="alert alert-info pg pw">
+
+                                    <div class="row align-items-center">
+                                        <div class="col-5 ">
+                                            Note globale
+                                        </div>
+                                        <div class="col-7">
+                                            {% include 'admin/elements/adminnotation.html.twig' with {'note': annonce.moyenne } %}
+
+                                            <small>(
+                                                {{annonce.commentaires|length}}
+                                                avis)
+                                            </small>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        {% endif %}
+                        {% for commentaire in annonce.commentaires %}
+                        <div class="row bg-light rounded mt-3 py-0 px-4 ml-4">
+                            <div class="col-2 px-4">
+                                <div class="mt-3">
+                                    <img src="{{commentaire.auteur.avatar}}" alt="avatar de {{commentaire.auteur.identite}}" class="avatard ronde">
+                                </div>
+                            </div>
+                            <div class="col-5">
+                                <a href="{{path('membre_afficher',{slug:commentaire.auteur.slug})}}" class="pc pg pw">
+                                    {{commentaire.auteur.identite}}
+                                </a>
+                                <br>
+                                <p class=" pn" style="display: inline-block;">Note :
+                                    <strong></strong>
+                                </p>
+                                {% include 'admin/elements/adminnotation.html.twig' with {'note':commentaire.note } %}
+                            </div>
+                            <div class="col-5"></div>
+                            <div class="row bg-light rounded mb-0 py-0 px-3">
+                                <p class="pp">{{commentaire.contenu}}</p>
+                            </div>
+                        </div>
+
+                        {% endfor %}
+                {% else %}
+                    <p class="mt-4 mb-3 pg">Cette annonce n'a pas encore reçu de commentaire.</p>
+                
+            {% endif %}
+            
+            
+
+        </div>
+        
+    </div>
+</div>{% endblock %}
+
+
+
+
+{% block javascripts %}
+<script src='/js/ajoutimage.js'></script>
+{% endblock %}

@@ -7,10 +7,18 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use App\Form\DataTransformer\FrenchToDateTimeTransformer;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 class ReservationType extends AbstractType
 {
+    private $transformer;
+    public function __construct(FrenchToDateTimeTransformer $transformer){
+        $this->transformer=$transformer;
+    }
+
+
     /**
     * configure le label et placeholder
     * @param string $lab 
@@ -33,18 +41,21 @@ class ReservationType extends AbstractType
     
 
         $builder
-            ->add('dateentree',DateType::class,[
+            ->add('dateentree',TextType::class,[
                 'label'=>false,
-                'widget'=>'single_text',
-                'required' => false
-                ])
-             
-            ->add('datesortie',DateType::class,[
-                'label'=>false,
-                'widget'=>'single_text',
+                
                 'required' => false,
                 'attr'=>[
-                    'placeholder'=>""                    
+                    'placeholder'=>"Choisissez une date"                    
+                    ]
+                ])
+             
+            ->add('datesortie',TextType::class,[
+                'label'=>false,
+                
+                'required' => false,
+                'attr'=>[
+                    'placeholder'=>"Choisissez une date"                    
                     ]
                 ])
             ->add('commentaire',TextareaType::class,$this->conf(false,
@@ -52,6 +63,8 @@ class ReservationType extends AbstractType
             
             
         ;
+        $builder->get('dateentree')->addModelTransformer($this->transformer);
+        $builder->get('datesortie')->addModelTransformer($this->transformer);
     }
 
     public function configureOptions(OptionsResolver $resolver)

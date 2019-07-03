@@ -47,4 +47,17 @@ class UserRepository extends ServiceEntityRepository
         ;
     }
     */
+    public function bonsLoueurs($nb=3){
+        return $this->createQueryBuilder('u')
+                    ->select('u as user','AVG(c.note) as notemoyenne','COUNT(c) as nbcomments')
+                    ->join('u.immos','i')
+                    ->join('i.commentaires','c')
+                    ->groupBy('u')
+                    ->having('nbcomments >3')
+                    ->orderBy('notemoyenne','DESC')
+                    ->setMaxResults($nb)
+                    ->getQuery()
+                    ->getResult();
+
+    }
 }

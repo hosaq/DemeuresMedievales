@@ -7,6 +7,7 @@ use App\Entity\Immo;
 use App\Entity\Role;
 use App\Entity\User;
 use App\Entity\Image;
+use App\Entity\Commentaire;
 use App\Entity\Reservation;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -127,6 +128,17 @@ class ImmoFixtures extends Fixture
                             ->setMontant($montant)
                             ->setCommentaire($commentaire);
                 $manager->persist($reservation);
+
+                //gestion des commentaires
+                if (mt_rand(0,1)){
+                    $comment=new Commentaire();
+                    $comment->setContenu($faker->paragraph())
+                            ->setAuteur($booker)
+                            ->setAnnonce($immo)
+                            ->setNote(mt_rand(1,5));
+
+                    $manager->persist($comment);
+                }
             
             }
              $manager->persist($immo);

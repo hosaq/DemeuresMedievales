@@ -2,10 +2,11 @@
 
 namespace App\Entity;
 
+use App\Entity\User;
 use Cocur\Slugify\Slugify;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
@@ -87,10 +88,36 @@ class Immo
      */
     private $reservations;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Commentaire", mappedBy="annonce", orphanRemoval=true)
+     */
+    private $commentaires;
+
     public function __construct()
     {
         $this->images = new ArrayCollection();
         $this->reservations = new ArrayCollection();
+        $this->commentaires = new ArrayCollection();
+    }
+    /**
+     * Calcule la moyenne des notes
+     */
+    public function moyenne(){
+        $somme=array_reduce($this->commentaires->toArray(),
+        function($total,$commentaire){return $total + $commentaire->getNote();
+        },0);
+        if (count($this->commentaires)>0) return $somme/count($this->commentaires);
+        return 0;
+
+    }
+    /**
+     * permet d'obtenir le commentaire d'une annonce pour son auteur
+     */
+    public function obtenircommentaireAuteur(User $auteur){
+        foreach($this->commentaires as $commentaire){
+            if($commentaire->getAuteur()===$auteur) return $commentaire;
+        }
+        return null;
     }
 
     /**
@@ -295,6 +322,37 @@ class Immo
             // set the owning side to null (unless already changed)
             if ($reservation->getAnnonce() === $this) {
                 $reservation->setAnnonce(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Commentaire[]
+     */
+    public function getCommentaires(): Collection
+    {
+        return $this->commentaires;
+    }
+
+    public function addCommentaire(Commentaire $commentaire): self
+    {
+        if (!$this->commentaires->contains($commentaire)) {
+            $this->commentaires[] = $commentaire;
+            $commentaire->setAnnonce($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCommentaire(Commentaire $commentaire): self
+    {
+        if ($this->commentaires->contains($commentaire)) {
+            $this->commentaires->removeElement($commentaire);
+            // set the owning side to null (unless already changed)
+            if ($commentaire->getAnnonce() === $this) {
+                $commentaire->setAnnonce(null);
             }
         }
 

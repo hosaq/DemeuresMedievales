@@ -3,7 +3,9 @@
 namespace App\Controller;
 
 use App\Entity\Immo;
+use App\Entity\Commentaire;
 use App\Entity\Reservation;
+use App\Form\CommentaireType;
 use App\Form\ReservationType;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -48,16 +50,32 @@ class ReservationController extends AbstractController
     }
 
     /**
-     * montre une reservation
+     * montre une reservation et sauvegarde un commentaire
      * @Route("/reservation/{id}", name="reservation_voir")
      * @Security("is_granted('ROLE_USER') and (user === reservation.getBooker() or 
       user === reservation.getAnnonce().getProprio()) or is_granted('ROLE_ADMIN')",
       message="Cette annonce ne vous appartient pas, vous ne pouvez pas la modifier." )
      */
-    public function voirreservervation(Reservation $reservation)
+    public function voirreservervation(Reservation $reservation,Request $request, ObjectManager $manager)
     {
+        $commentaire=new Commentaire();
+        $form=$this->createForm(CommentaireType::class,$commentaire);
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()){
+            $user=$this->getUser();
+            $commentaire->setAuteur($user)
+                        ->setAnnonce($reservation->getAnnonce())
+            ;
+            $manager->persist($commentaire);
+            $manager->flush();
+            $this->addFlash(
+                'success',
+                "Votre commentaire a bien été pris en compte."
+            );
+        }
         return $this->render('reservation/voirreserve.html.twig', [
             'reservation'=> $reservation,
+            'form'=>$form->createView(),
             
         ]);
     }

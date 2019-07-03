@@ -1,0 +1,57 @@
+
+{% set loc=reservation.annonce %}
+{% set proprio=loc.proprio %}
+{% set couleur='' %}
+{% set membre=reservation.booker %}
+{% set comment=loc.obtenircommentaireAuteur(membre)%}
+
+
+
+<div class="col-4 my-4 pl-0 catereservation">
+    <div class="card bg-light bg-3">
+        <div class="card-header text-center px-3">
+             <a href="{{path('membre_afficher',{slug:membre.slug})}}" class="pc pg pw">
+                            {{membre.identite}}
+            </a>
+            <p class="mb-2">
+            {% if comment and comment !="aucun"%}
+                {% include 'elements/notation.html.twig' with {'note': comment.note } %}
+            {% elseif comment=="aucun" %}
+                <small></small>
+            {% else %}
+                <small>Pas encore noté.</small>
+            {% endif %}
+            </p>
+             <div class="mb-2">
+                <img src="{{membre.avatar}}" alt="avatar de {{membre.identite}}" class="avatard ronde">
+            </div>
+            
+               
+             <div class="col-12 alert alert-light pp mb-0">
+                <dl class="row mb-0">
+                    <dt class="col-7 px-0 text-left">Réservée le :</dt>
+                    <dd class="col-5 px-0">{{reservation.creele|date('d/m/Y')}}</dd>
+                    <dt class="col-7 px-0 text-left">Date d'arrivée :</dt>
+                    <dd class="col-5 px-0"><strong>{{reservation.dateentree|date('d/m/Y')}}</strong></dd>
+                    <dt class="col-7 px-0 text-left">Date de départ :</dt>
+                    <dd class="col-5 px-0"><strong>{{reservation.datesortie|date('d/m/Y')}}</strong></dd>
+                    <dt class="col-7 px-0 text-left">Nombre de nuits :</dt>
+                    <dd class="col-5 px-0">{{reservation.duree}} nuits</dd>
+                    <dt class="col-7 px-0 text-left">Prix par nuit :</dt>
+                    <dd class="col-5 px-0">{{loc.prix}} &euro;</dd>
+                    <dt class="col-7 px-0 text-left">Montant total :</dt>
+                    <dd class="col-5 px-0">{{reservation.montant}} &euro;</dd>
+                    
+                </dl>
+                </div>
+                <div class="mt-2">
+                            <a href="{{path('admin_reservation_voir',{id:reservation.id})}}"
+                             style="background-color:{{couleur}};border-color:{{couleur}}" 
+                             class="btn btn-secondary bdr mr-2 mb-2 pp">Voir cette réservation</a>
+                </div>
+                
+            </div>
+        
+    </div>
+</div>
+
