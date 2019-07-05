@@ -47,4 +47,23 @@ class ReservationRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    /**
+     * retourne les reservations d'un proprio
+    * @return Reservation[] Returns an array of Reservation objects
+    */
+    public function findreservationbiensutilisateur($user){
+    return $this->createQueryBuilder('r')
+                    ->select('r as reservation')
+                    ->join('r.annonce','i')
+                    ->join('i.proprio','u')
+                    ->andWhere('i.proprio = :val')
+                    ->setParameter('val', $user)
+                    ->groupBy('r')
+                    ->orderBy('r.dateentree','DESC')
+                    ->setMaxResults(12)
+                    ->getQuery()
+                    ->getResult();
+
+    }
 }

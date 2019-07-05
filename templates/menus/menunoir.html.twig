@@ -25,12 +25,34 @@
         </ul>
         <ul class="navbar-nav ml-auto">
             {% if app.user %}
+            
             <li class="nav-item dropdown">
                 <a href="#" id="ouvrir" class="nav-link dropdown-toggle" data-toggle="dropdown" style="color:#e98753;">
                     <img src="{{app.user.avatar}}" alt="{{app.user.identite}}" 
-                    class="avatar avatar-mini ronde">{{app.user.identite}}
+                    class="avatar avatar-mini ronde mr-2">{{app.user.identite}}
                 </a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="ouvrir">
+
+                    {% for role in  app.user.userRoles %}
+                        {% if 'ROLE_ADMIN'==role.titre %}
+                            <a href="{{path('admin_connexion')}}" 
+                            class="dropdown-item">Administrer
+                            </a>
+                            <div class="dropdown-divider"></div>
+                        {% endif %}
+                    {% endfor %}
+                    
+                        {% if app.user.immos is not empty %}
+                            <a href="{{path('mes_annonces')}}" 
+                            class="dropdown-item">Gérer mes annonces
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            <a href="{{path('reservations_de_mes_biens')}}" 
+                            class="dropdown-item">Réservations de mes biens
+                            </a>
+                            <div class="dropdown-divider"></div>
+                        {% endif %}
+                    
                     <a href="{{path('nouveau_bien')}}" 
                      class="dropdown-item">Créer une annonce
                     </a>

@@ -21,8 +21,9 @@
     <div class="row ">
         <div class="col-6">
             <div class="">
-                <h4 mt-4>Détails</h4>
-                <div class="col-11 alert alert-light ">
+                
+                <div class="col-11 alert alert-light mt-5">
+                <h3 class="mt-3 mb-3">Détails</h3>
                 <dl class="row">
                 
                     <dt class="col-md-4">Numéro :</dt>
@@ -47,7 +48,7 @@
                 </dl>
                 
                 <hr>
-                <h2 class="alert-heading">Votre hôte</h2>
+                <h3 class="alert-heading">Votre hôte</h3>
                 <div class="row">
                     <div class="col-3">
                         <img src="{{proprio.avatar}}" alt="avatar de {{proprio.identite}}" class="avatar ronde">
@@ -111,8 +112,8 @@
             </div>
         </div>
         <div class="col-6 mt-5">
-            <div class="alert alert-light">
-                <h3 class="alert-heading mb-4">Votre hébergement : 
+            <div class="alert alert-light py-5">
+                <h3 class="alert-heading  mb-4">Votre hébergement : 
                 <a href="{{path('cette_annonce',{'slug':loc.slug})}}" class="text-warning pluspt">
                 <span class="chevronpt">&#60;&#60;</span> 
                 {{loc.titre}} <span class="chevronpt">&#62;&#62;</span></a></h3>

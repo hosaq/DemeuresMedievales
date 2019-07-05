@@ -7,6 +7,7 @@ use App\Entity\Commentaire;
 use App\Entity\Reservation;
 use App\Form\CommentaireType;
 use App\Form\ReservationType;
+use App\Repository\ReservationRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Routing\Annotation\Route;
@@ -76,6 +77,23 @@ class ReservationController extends AbstractController
         return $this->render('reservation/voirreserve.html.twig', [
             'reservation'=> $reservation,
             'form'=>$form->createView(),
+            
+        ]);
+    }
+
+    /**
+     * montre les reservations des biens d'un membre
+     * @Route("/reservationsdemesbiens", name="reservations_de_mes_biens")
+     * @Security("is_granted('ROLE_USER') or is_granted('ROLE_ADMIN')")
+     */
+    public function reservationsdemesbiens(ReservationRepository $repo)
+    {   $membre=$this->getUser();
+        $reservations=$repo->findreservationbiensutilisateur($membre);
+        
+        return $this->render('reservation/reservationsdemesbiens.html.twig', [
+            'reservations'=> $reservations,
+            'membre'      => $membre
+            
             
         ]);
     }

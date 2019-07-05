@@ -120,6 +120,10 @@ class Reservation
         },$resultat);
         return $jours;
     }
+    public function getProprio(): ?User
+    {
+        return $this->annonce->getProprio();
+    }
     
     
     public function getId(): ?int

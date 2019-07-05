@@ -58,4 +58,21 @@ class ImmoRepository extends ServiceEntityRepository
                     ->getResult();
 
     }
+
+    /**
+     * retourne les annonces d'un proprio
+    * @return Immo[] Returns an array of Immo objects
+    */
+    
+    public function findByProprio($value)
+    {
+        return $this->createQueryBuilder('i')
+            ->andWhere('i.proprio = :val')
+            ->setParameter('val', $value)
+            ->orderBy('i.prix', 'ASC')
+            ->setMaxResults(50)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
 }

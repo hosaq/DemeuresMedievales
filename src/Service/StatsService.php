@@ -41,7 +41,7 @@ class StatsService{
         JOIN c.annonce i
         JOIN i.proprio u
         GROUP BY i
-        ORDER BY note '.$ordre
+        ORDER BY note ' .$ordre
         )
         ->setMaxResults(5)
         ->getResult();

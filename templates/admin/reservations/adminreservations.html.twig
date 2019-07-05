@@ -1,0 +1,22 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Réservations{% endblock %}
+
+{% block body %}
+<style>
+    
+</style>
+
+<div class="container-fluid">
+    <h2 class="my-5">Gestion des réservations</h2>
+        <div class="row px-5 ">
+            {% for reservation in pagination.data %}
+                {% include 'admin/elements/carteadminreservationpetite.html.twig' %}
+            {% endfor %}
+        </div>
+        
+    {% include 'admin/elements/pagination.html.twig' with {'route':'admin_reservations'} %}
+     
+    
+</div>
+{% endblock %}

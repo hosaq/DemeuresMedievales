@@ -20,7 +20,7 @@ class AdminTableaudebordController extends AbstractController
 
         $meilleures=$statsservice->getLesplus('DESC');
         
-        $pires=$meilleures=$statsservice->getLesplus('ASC');
+        $pires=$statsservice->getLesplus('ASC');
         
 
         return $this->render('admin/tableaudebord/tableaubord.html.twig', [

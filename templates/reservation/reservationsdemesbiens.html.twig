@@ -1,0 +1,65 @@
+{% extends 'base.html.twig' %}
+{% block stylesheets %}
+    <link rel="stylesheet" type="text/css" href="/css/base.css">
+    <link rel="stylesheet" type="text/css" href="/css/mesreservations.css">
+{% endblock %}
+{% block title %}Demeures Médiévales-Réservations de mes biens{% endblock %}
+
+{% block body %}
+<div class="titre" style="background-image:url('/images/medieval.jpg') ">
+    <div class="container">
+        <h1>Réservations des biens de {{membre.identite}} </h1>
+        <p></p>
+        <p class="h2">
+            <strong></strong><strong>
+            
+            </strong> 
+        </p>
+        
+    </div>
+</div>
+<div class="container mt-5 ">
+    
+    <h2 class="mt-5 mb-4"></h2>
+    {% if membre.reservations|length >0 %}
+        <h5 class="mt-5 mb-4">Réservations à venir :</h5>
+        <div class="row">
+        
+            {% for reserv in reservations %}
+                {% set reservation=reserv.reservation %}
+                {% set loc=reservation.annonce %}
+                {% set proprio=loc.proprio %}
+                {% set couleur='#3bc079 !important' %}
+                {% set comment="aucun"%}
+                {% if "now"|date('Y-m-d') < reservation.dateentree|date('Y-m-d') %}
+                    {% include '/elements/cartereservproprio.html.twig'%}
+                {% endif %}
+            {% endfor %}
+        </div>
+         <h5 class="mt-4 mb-4">Réservations passées :</h5>
+         <div class="row">
+            {% for reserv in reservations %}
+                {% set reservation=reserv.reservation %}
+                {% set loc=reservation.annonce %}
+                {% set proprio=loc.proprio %}
+                {% set couleur='' %}
+                
+                {% if "now"|date('Y-m-d') >= reservation.dateentree|date('Y-m-d') %}
+                    {% set comment=loc.obtenircommentaireAuteur(reservation.booker)%}
+                    {% include '/elements/cartereservproprio.html.twig'%}
+                {% endif %}
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="alert alert-warning">
+            <p>
+                <strong>{{membre.identite}}</strong> n'a effectué aucune réservation sur ce site.
+            </p>
+        </div>
+    {% endif %}
+
+
+</div>
+
+
+{% endblock %}

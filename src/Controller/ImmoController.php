@@ -29,6 +29,20 @@ class ImmoController extends AbstractController
     }
 
     /**
+     * liste des annonces d'un utilisateur
+     * @Route("/mesannonces", name="mes_annonces")
+     * @IsGranted("ROLE_USER")
+     */
+    public function annonceProprio(ImmoRepository $repo)
+    {
+        
+        $biens=$repo->findByProprio($this->getUser());
+        return $this->render('membre/mesannonces.html.twig', [
+            'biens' => $biens,
+        ]);
+    }
+
+    /**
      * montre une annonce
      * @Route("/annonce/{slug}", name="cette_annonce")
      * @return Response

@@ -8,6 +8,7 @@ class PaginationService{
     private $limit=10;
     private $pageactuelle=1;
     private $manager;
+    private $ordre=[];
 
     public function __construct(ObjectManager $manager){
         $this->manager=$manager;
@@ -23,7 +24,7 @@ class PaginationService{
     public function getData(){
         $position=$this->limit*($this->pageactuelle-1);
         $repo=$this->manager->getRepository($this->entityClass);
-        $data=$repo->findBy([],[],$this->limit,$position);
+        $data=$repo->findBy([],$this->ordre,$this->limit,$position);
         return $data;
 
     }
@@ -49,6 +50,14 @@ class PaginationService{
     }
     public function getEntityClass(){
         return $this->entityClass;
+    }
+
+    public function setOrdre($ordre){
+        $this->ordre=$ordre;
+        return $this;
+    }
+    public function getOrdre(){
+        return $this->ordre;
     }
 }
 ?>
