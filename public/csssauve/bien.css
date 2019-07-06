@@ -1,0 +1,20 @@
+div.titre{
+    font-size: 2rem;
+    padding: 2rem;
+    background-size: cover;
+    background-position: center center;
+}
+div.titre h1, div.titre p{
+    color:#fff;
+    text-shadow: 3px 3px 3px rgba(0,0,0,0.5);
+}
+div.carousel-caption{
+    text-shadow: 3px 3px 3px rgba(0,0,0,0.5);
+}
+.mt-6{
+    margin-top: 50px;
+}
+.avatar{
+    max-height: 40px;
+    
+}

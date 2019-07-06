@@ -1,0 +1,20 @@
+.titre{
+    font-size: 2rem;
+    padding: 2rem;
+    background-size: cover;
+    background-position: center center;
+    min-height: 200px;
+}
+div.titre h1, div.titre p{
+    color:#fff;
+    text-shadow: 3px 3px 3px rgba(0,0,0,0.5);
+}
+.text-warning{
+    color:#628d72 !important;
+}
+.col-md-6{
+    text-align: left;
+}
+.avatar{
+    max-width: 20%;
+}

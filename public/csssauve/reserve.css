@@ -1,0 +1,51 @@
+div.titre{
+    font-size: 2rem;
+    padding: 2rem;
+    background-size: cover;
+    background-position: center center;
+}
+div.titre h1, div.titre p{
+    color:#fff;
+    text-shadow: 3px 3px 3px rgba(0,0,0,0.5);
+}
+div.carousel-caption{
+    text-shadow: 3px 3px 3px rgba(0,0,0,0.5);
+}
+.mt-6{
+    margin-top: 50px;
+}
+.presente{
+    font-size: 1.4rem;
+    margin-bottom: 1rem;
+}
+.chevron{
+    font-size: 1.4rem;
+}
+.largeform{
+    width: 50%;
+}
+.commentaire{
+    width: 91%;
+}
+.chevronpt{
+    font-size: 0.8rem;
+}
+.alert-light{
+    background-color: #f9f9f9;
+}
+.img-fluid{
+    max-height:300px;
+    margin-bottom: 30px;
+    margin-top: 30px;
+}
+.pluspt{
+    font-size: 1.5rem;
+}
+.f5{
+    font-size: 1.1rem;
+    text-align: center;
+}
+.table tr td.disabled, .datepicker table tr td.disabled{
+    background-color: rgb(255, 246, 239) !important;
+    color: firebrick !important;
+}

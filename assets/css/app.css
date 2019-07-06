@@ -1,3 +1,7 @@
+@import url('./bootstrapcopie.css');
+@import url('./base.css');
+
+
 body {
-    background-color: lightgray;
+    background-color: #fff;
 }

@@ -24,6 +24,13 @@ Encore
      * and one CSS file (e.g. app.css) if you JavaScript imports CSS.
      */
     .addEntry('app', './assets/js/app.js')
+    .addStyleEntry('bien', './assets/css/bien.css')
+    .addStyleEntry('connexion', './assets/css/connexion.css')
+    .addStyleEntry('mesreservations', './assets/css/mesreservations.css')
+    .addStyleEntry('reserve', './assets/css/reserve.css')
+    .addStyleEntry('base', './assets/css/base.css')
+    .addStyleEntry('adminbase', './assets/css/adminbase.css')
+
     //.addEntry('page1', './assets/js/page1.js')
     //.addEntry('page2', './assets/js/page2.js')
 

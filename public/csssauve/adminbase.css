@@ -1,0 +1,105 @@
+.container{
+    max-width: 1500px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+div.container-fluid{
+    
+    margin-top: 30px;
+    
+}
+.btn-lg{
+    border-radius: 2rem;
+}
+.imageappart{
+    height: 200px;
+    width: 100%;
+    display: block;
+}
+.bdr{
+    border-radius :1.5rem;
+}
+ .ronde{
+     border-radius:50%;
+ }
+ .btn-arrondi{
+    border-radius: 2rem;
+ }
+ .mt-10{
+    margin-top: 50px;
+}
+.alert-danger {
+    color: #fdf9f9;
+    background-color: #fd744e;
+    border-color: #f7966f;
+}
+.navbar-nav {
+    padding-left: 5%;
+}
+.avatar-mini{
+    max-width: 30px;
+    max-height:30px;
+    
+}
+.dropdown-item{
+    color:#e75a0e;
+}
+span.note i{
+    color:rgb(236, 181, 40);
+}
+.avatard{
+    max-height: 40px;
+    
+}
+text-warning a{
+    text-decoration: none;
+}
+.listimg{
+    width: 20% !important;
+    height: 50px;
+    display: inline-block !important;
+}
+.pc{
+    color:rgb(236, 181, 40);
+}
+.pn{
+    font-size: 1rem;
+}
+.pw{
+    font-weight: 600;
+}
+.pg{
+    font-size: 1.1rem;
+}
+.pp{
+    font-size: 0.8rem !important;
+}
+.bordure{
+    border-left-style: solid;
+    border-left-width: 1px;
+    border-color: #d2e0e0;
+}
+.cartereservation{
+    padding-right: 10% !important;
+}
+.pm{
+    font-size: 0.85rem !important;
+}
+.bg-success {
+	background-color: #28a77a !important;
+}
+.avatar-mini{
+    max-width: 30px;
+    max-height:30px;
+    
+}
+.avatard{
+    max-height: 40px;
+    
+}
+.ronde{
+    border-radius:50%;
+}
+.btn-arrondi{
+   border-radius: 2rem;
+}
