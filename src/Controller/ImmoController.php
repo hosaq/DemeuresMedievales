@@ -8,6 +8,7 @@ use App\Form\AnnonceType;
 use App\Repository\ImmoRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -155,6 +156,58 @@ class ImmoController extends AbstractController
 
 
         
+    }
+
+    /**
+     * modifie le texte d'introduction par ajax
+     * 
+     * @Route("/annonce/intro/{id}", name="modifier_intro")
+     * @Security("is_granted('ROLE_USER') and user === annonce.getProprio() or is_granted('ROLE_ADMIN')",
+     * message="Cette annonce ne vous appartient pas, vous ne pouvez pas la modifier." )
+     * 
+     */
+    public function introduction(Immo $annonce,ObjectManager $manager,Request $request):Response{
+        
+        
+        $introj = $request->getContent();
+        /**$this->addFlash(
+            'success',
+            "Pour enregistrer cette introduction : <br>
+            - copier le texte, <br>
+            - ouvrez modifier cette annonce, <br>
+            - collez ce texte dans la rubrique Introduction."
+        );
+        
+        $intro=json_decode($introj, true);
+        $annonce->setIntroduction($intro['intro']);
+        $manager->persist($annonce);
+        $manager->flush();
+        */
+
+        return $this->json([
+            'code'=>200,'message'=>$introj
+        ],200);
+
+
+    }
+    /**
+     * modifie le texte de contenu par ajax
+     * 
+     * @Route("/annonce/contenu/{id}", name="modifier_contenu")
+     * @Security("is_granted('ROLE_USER') and user === annonce.getProprio() or is_granted('ROLE_ADMIN')",
+     * message="Cette annonce ne vous appartient pas, vous ne pouvez pas la modifier." )
+     * 
+     */
+    public function contenu(Immo $annonce,ObjectManager $manager,Request $request):Response{
+        
+        
+        $contenuj = $request->getContent();
+        
+        return $this->json([
+            'code'=>200,'message'=>$contenuj
+        ],200);
+
+
     }
 
 

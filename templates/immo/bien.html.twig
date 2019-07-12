@@ -2,6 +2,7 @@
 {%block stylesheets %}
     
     <link rel="stylesheet" type="text/css" href="/build/bien.css">
+    <link rel="stylesheet" type="text/css" href="/css/bien.css">
 {% endblock %}
 {% block title %}{{bien.titre}}{% endblock %}
 
@@ -9,7 +10,18 @@
 <div class="titre" style="background-image:url({{bien.imageLarge}}) ">
     <div class="container">
         <h1>{{bien.titre}}</h1>
-        <p>{{bien.introduction}}</p>
+        {% if app.user and app.user==bien.proprio %}
+                {% set intr="intr" %}
+            {% else %}
+                {% set intr="" %}
+        {% endif %}
+        
+            <p id="{{intr}}" class="vue">{{bien.introduction}}</p>
+        {% if app.user and app.user==bien.proprio %}
+            <form name="intro" class="nonvue" id='modifier' method='post' action="{{path('modifier_intro',{'id':bien.id})}}">
+                    <textarea id="introduction" name="intro" style="width: 100%;">{{bien.introduction}}</textarea>
+            </form>           
+        {% endif %}
         <p class="h2">
             <strong>{{bien.surface}}m²</strong>
             pour
@@ -27,7 +39,21 @@
 <div class="container mt-6">
     <div class="row">
         <div class="col-md-8 mb-3 px-5">
-            {{bien.contenu|raw}}
+            {% if app.user and app.user==bien.proprio %}
+                {% set content="conten" %}
+            {% else %}
+                {% set content="" %}
+            {% endif %}
+            
+                <div id="{{content}}" class="vue">
+                    {{bien.contenu|raw}}
+                </div>
+            {% if app.user and app.user==bien.proprio %}       
+                <form name="fcontent" class="nonvue" id='contenumodifier' method='post' action="{{path('modifier_contenu',{'id':bien.id})}}">
+                    <textarea id="contenu" name="contenu" style="width: 100%; height: 300px;">{{bien.contenu}}</textarea>
+                </form>           
+            {% endif %}
+            
 
             <div class="carousel slide mt-5" data-ride="carousel" id="carouselExampleIndicators">
                 <ol class="carousel-indicators">
@@ -131,4 +157,90 @@
 </div></div>
 
 
+{% endblock %}
+{% block javascripts %}
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script>
+
+function onClickModifie(event){
+
+    event.preventDefault();
+    const url=this.href;
+    this.classList.remove('vue');
+    this.classList.add('nonvue');
+    const voir=document.getElementById('modifier');
+    voir.classList.remove('nonvue');
+    voir.classList.add('vue');
+    const amodifier=document.getElementById('introduction');
+    amodifier.addEventListener('dblclick',modif);
+}   
+function modif(event){
+    event.preventDefault();
+    
+    console.log(this.value);
+    
+    axios.post("{{path('modifier_intro',{'id':bien.id})}}", {
+          intro:this.value
+        })
+        .then(function(response){
+            console.log(response.data);
+            let repons=JSON.parse(response.data.message);
+            const cacher=document.getElementById('modifier');
+            cacher.classList.remove('vue');
+            cacher.classList.add('nonvue');
+  
+            const voir=document.getElementById('intr');
+            voir.classList.remove('nonvue');
+            voir.classList.add('vue');
+            voir.innerHTML=repons.intro;
+        
+    });
+    
+    //document.getElementById("reponse").innerHTML=repons.intro;
+}
+   
+document.querySelector('#intr').addEventListener('click',onClickModifie);
+
+
+function onClickModifieContenu(event){
+
+    event.preventDefault();
+    const url=this.href;
+    this.classList.remove('vue');
+    this.classList.add('nonvue');
+    const voir=document.getElementById('contenumodifier');
+    voir.classList.remove('nonvue');
+    voir.classList.add('vue');
+    const amodifier=document.getElementById('contenu');
+    amodifier.addEventListener('dblclick',contenumodif);
+}   
+function contenumodif(event){
+    event.preventDefault();
+    
+    console.log(this.value);
+    
+    axios.post("{{path('modifier_contenu',{'id':bien.id})}}", {
+          contenu:this.value
+        })
+        .then(function(response){
+            console.log(response.data);
+            let repons=JSON.parse(response.data.message);
+            const cacher=document.getElementById('contenumodifier');
+            cacher.classList.remove('vue');
+            cacher.classList.add('nonvue');
+  
+            const voir=document.getElementById('conten');
+            voir.classList.remove('nonvue');
+            voir.classList.add('vue');
+            voir.innerHTML=repons.contenu;
+        
+    });
+    
+    //document.getElementById("reponse").innerHTML=repons.intro;
+}
+   
+document.querySelector('#conten').addEventListener('click',onClickModifieContenu);
+    
+
+</script>
 {% endblock %}

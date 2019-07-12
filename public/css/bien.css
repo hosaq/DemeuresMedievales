@@ -1,0 +1,12 @@
+.nonvue{
+    visibility: hidden;
+    display:none;
+    
+}
+.vue{
+   visibility:visible;
+   display: block;
+}
+.hauteur{
+    height: 300px;
+}
