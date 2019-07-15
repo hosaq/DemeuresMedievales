@@ -7,7 +7,12 @@
 {% block title %}{{bien.titre}}{% endblock %}
 
 {% block body %}
-<div class="titre" style="background-image:url({{bien.imageLarge}}) ">
+    {% if bien.larges  %}
+                {% set large= vich_uploader_asset(bien, 'largesFile') %}
+            {% else %}
+                {% set large= bien.imageLarge %}
+    {% endif %}
+<div class="titre" style="background-image:url({{large}}) ">
     <div class="container">
         <h1>{{bien.titre}}</h1>
         {% if app.user and app.user==bien.proprio %}

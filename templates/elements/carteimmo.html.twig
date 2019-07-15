@@ -8,7 +8,12 @@
             {% else %}
                 <small>Pas encore noté</small>
             {% endif %}
-            <img alt="image de l'appartement" class="imageappart mt-3" src="{{bien.imageLarge}}">
+            {% if bien.larges  %}
+                {% set large= vich_uploader_asset(bien, 'largesFile') %}
+            {% else %}
+                {% set large= bien.imageLarge %}
+            {% endif %}
+            <img alt="image de l'appartement" class="imageappart mt-3" src="{{large}}">
             <div class="card-body">
                 <h4 class="card-title">
                     {{bien.titre}}

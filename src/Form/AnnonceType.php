@@ -8,6 +8,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\UrlType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
@@ -57,6 +58,13 @@ class AnnonceType extends AbstractType
                 $this->conf("Surface","Entrez la surface de votre bien."))
             ->add('surfaceTerrain',IntegerType::class,
                 $this->conf("Surface du terrain","Entrez la surface du terrain de votre bien."))
+            ->add('largesFile', FileType::class, [
+                    'required' => false,
+                    'label'=>"Image du bandeau de votre annonce",
+                    'attr'=>[
+                        'placeholder'=>"Un fichier jpg ou jpeg de préférence, un pnp est aussi accepté."
+                        ]
+                ])    
             ->add(
                 'images',
                 CollectionType::class,

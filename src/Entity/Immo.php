@@ -9,6 +9,9 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ImmoRepository")
@@ -16,6 +19,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * @UniqueEntity(
  * fields={"titre"},
  * message="Une autre annonce possède déjà ce titre, merci de le modifier.")
+ * @Vich\Uploadable()
  */
 
 class Immo
@@ -56,6 +60,25 @@ class Immo
     private $contenu;
 
     /**
+     * @var string|null
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $larges;
+
+    /**
+     * @var File|null
+     * @Assert\Image( mimeTypes={"image/png", "image/jpeg", "image/jpg", "image/svg+xml", "image/gif"})
+     * @Vich\UploadableField(mapping="biens_larges", fileNameProperty="larges")
+     */
+    private $largesFile;
+
+    /**
+     * @var string|null
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+
+
+    /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $imageLarge;
@@ -93,8 +116,19 @@ class Immo
      */
     private $commentaires;
 
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $date;
+
+     /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $updated_at;
+
     public function __construct()
     {
+        $this->date=new \DateTime();
         $this->images = new ArrayCollection();
         $this->reservations = new ArrayCollection();
         $this->commentaires = new ArrayCollection();
@@ -157,6 +191,71 @@ class Immo
     {
         return $this->id;
     }
+
+    public function getDate(): ?\DateTimeInterface
+    {
+        return $this->date;
+    }
+
+    public function setDate(?\DateTimeInterface $date): self
+    {
+        $this->date = $date;
+
+        return $this;
+    }
+
+     /**
+     * @return null|string
+     */
+    public function getLarges(): ?string
+    {
+        return $this->larges;
+    }
+
+    /**
+     * @param null|string $larges
+     * @return Immo
+     */
+    public function setLarges(?string $larges): Immo
+    {
+        $this->larges = $larges;
+        return $this;
+    }
+
+    /**
+     * @return null|File
+     */
+    public function getLargesFile(): ?File
+    {
+        return $this->largesFile;
+    }
+
+    /**
+     * @param null|File $largesFile
+     * @return Immo
+     */
+    public function setLargesFile(?File $largesFile): Immo
+    {
+        $this->largesFile = $largesFile;
+        if ($this->largesFile instanceof UploadedFile) {
+            $this->updated_at = new \DateTime('now');
+        }
+        return $this;
+    }
+ 
+    
+    public function getUpdatedAt(): ?\DateTimeInterface
+    {
+        return $this->updated_at;
+    }
+
+    public function setUpdatedAt(\DateTimeInterface $updated_at): self
+    {
+        $this->updated_at = $updated_at;
+
+        return $this;
+    }
+
 
     public function getTitre(): ?string
     {
