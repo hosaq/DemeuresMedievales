@@ -98,6 +98,11 @@ class User implements UserInterface
      */
     private $commentaires;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Interets", mappedBy="createur")
+     */
+    private $interets;
+
     public function getIdentite(){
         return "{$this->prenom} {$this->nom}";
     }
@@ -121,6 +126,7 @@ class User implements UserInterface
         $this->userRoles = new ArrayCollection();
         $this->reservations = new ArrayCollection();
         $this->commentaires = new ArrayCollection();
+        $this->interets = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -359,6 +365,37 @@ class User implements UserInterface
             // set the owning side to null (unless already changed)
             if ($commentaire->getAuteur() === $this) {
                 $commentaire->setAuteur(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Interets[]
+     */
+    public function getInterets(): Collection
+    {
+        return $this->interets;
+    }
+
+    public function addInteret(Interets $interet): self
+    {
+        if (!$this->interets->contains($interet)) {
+            $this->interets[] = $interet;
+            $interet->setCreateur($this);
+        }
+
+        return $this;
+    }
+
+    public function removeInteret(Interets $interet): self
+    {
+        if ($this->interets->contains($interet)) {
+            $this->interets->removeElement($interet);
+            // set the owning side to null (unless already changed)
+            if ($interet->getCreateur() === $this) {
+                $interet->setCreateur(null);
             }
         }
 

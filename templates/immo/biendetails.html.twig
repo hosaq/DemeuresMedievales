@@ -1,0 +1,345 @@
+{% extends 'base2.html.twig' %}
+
+{% block stylesheets %}
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">   
+    <link href="https://fonts.googleapis.com/css?family=Lora" rel="stylesheet"> 
+    <link rel="stylesheet" type="text/css" href="/css/biendetails.css">
+    {# <link rel="stylesheet" type="text/css" href="../css/leaflet.css">-->
+    
+    {{ encore_entry_link_tags('app') }}
+
+            <!-- Renders a link tag (if your module requires any CSS)
+                 <link rel="stylesheet" href="/build/app.css"> -->
+    #}
+
+{% endblock %}
+{% block body %}
+    {%if bien.fond %}
+        <body style='background-image: url("{{vich_uploader_asset(bien, 'fondFile')}}");'>
+        {%else%}
+        <body style='background-image: url("/images/orage.jpg");'>
+
+        {%endif%}
+
+        <div class="menu">
+            <div class="flex-container">
+
+                <div class="las auto logo">
+                    <div style="display: inline-block;float: left;padding: 0.7em" >
+                        {%if bien.larges %}
+                            <img src="{{vich_uploader_asset(bien, 'logosFile')}}" alt="logo">
+                        {%else%}
+                            <img class="auto" src="/images/logo2.jpg" alt="logo">
+                        {%endif%}
+                    </div>
+                    <p class="ubuntu" style="color: #fff;font-size: 1.1em;text-align: center">{{bien.titre}}</p>
+                </div>
+                <div class="las auto">
+                    <p class="lora" style="font-size: 1.25em;">Albi 81000 France</p>
+                </div>
+                <div class="las initial"></div>
+
+            </div>
+
+             <nav class="navbar navbar-expand-lg navbar-light bg-light" style="display:flex;background-color: #28292a !important;">
+
+
+
+                <div class="collapse navbar-collapse flex-containe" id="navbarTogglerDemo03">
+                    <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                        <li class="nav-item active four" style="width: 650px;"> </li>
+
+                        <li class="nav-item active ">
+                            <a class="nav-link trait" style="color: #eae9e8 !important;" href="#">Accueil<span class="sr-only">(current)</span></a>
+                        </li>
+                        <li class="nav-item active">
+                            <a class="nav-link" style="color: #eae9e8 !important;" href="#">Acheter <span class="sr-only">(current)</span></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" style="color: #eae9e8 !important;" href="#">Vendre</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link disabled" style="color: #eae9e8 !important;" href="#">Louer</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link disabled" style="color: #eae9e8 !important;" href="#">Mettre en location</a>
+                        </li>
+                    </ul>
+                    <form class="form-inline my-2 my-lg-0">
+                         <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                     </form>
+                </div>
+            </nav>
+           
+            <div class="imageprincipale flex-containe" >
+                {%if bien.larges %}
+                    <img class="auto" src="{{vich_uploader_asset(bien, 'largesFile')}}" alt="imagelarge">
+                {%else%}
+                    <img class="auto" src="/images/clarge.jpg" alt="imagelarge">
+                {%endif%}
+            </div>
+            <div class="contenu ">
+                <div class="principal">
+                    <div class="hrg">
+                        <hr style="width:100%;height: 1px; color: #8dbeff; background-color: #8dbeff;border: 0">
+                    </div>
+                    <h2>{{bien.titre}}</h2>
+                    <div class="imagemilieu" >
+                        {%if bien.rappelfonds %}
+                            <img class="milieu" src="{{vich_uploader_asset(bien, 'rappelfondsFile')}}" >
+                        {%else%}
+                            <img class="milieu" src="/images/cprincipal.jpg" alt="centrale">
+                        {%endif%}
+
+                    </div>
+                    <p class="description">{{bien.contenu}}</p>
+                    
+                    <div style="background-color: #fff;width: 110%;margin-left: -10%;padding: 10%">
+                        <div class="mosaique " >
+                            <div class="auto imagesmos">
+                                {%if bien.regions%}
+                                    <img class="auto imagemos" src="{{vich_uploader_asset(bien, 'regionsFile')}}" ><br>
+                                {%else%}
+                                    <img class="auto imagemos" src="/images/cregion.jpg" alt="region"><br>
+                                {%endif%}
+
+                                <a href="#">Région</a>
+                            </div>
+                            <div class="auto imagesmos">
+                                {%if bien.chambres %}
+                                    <img class="auto imagemos" src="{{vich_uploader_asset(bien, 'chambresFile')}}" ><br>
+                                {%else%}
+                                    <img class="auto imagemos" src="/images/cchambre.jpg" alt="chambre"><br>
+                                {%endif%}
+                                
+                                <a href="#">Chambres</a>
+                            </div>
+                            <div class="auto imagesmos">
+                                {%if bien.communs%}
+                                    <img class="auto imagemos" src="{{vich_uploader_asset(bien, 'communsFile')}}" ><br>
+                                {%else%}
+                                    <img class="auto imagemos" src="/images/ccommuns.jpg" alt="communs"><br>
+                                {%endif%}
+                                
+                                
+                                <a href="#">Communs</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="comment">
+                        <p><span class="gros">“ </span>{{bien.introduction}}<span class="gros"> “</span></p>
+                        <p style="font-weight: 600;font-family: Ubuntu, sans-serif;">&mdash; Gilbert Gall</p>
+                        <a href="#" class="afte">
+                            {%if bien.proprio %}
+                                    <img class="ronde" src="{{bien.proprio.avatar}}">
+                                {%else%}
+                                    <img class="ronde" src="/images/portrait.jpeg" alt="proprietaire">
+                                {%endif%}
+                            
+
+                        </a>
+                    </div>
+
+                    <div class="basgauche">
+                        <div class="hrg">
+                            <hr style="width:200%;height: 1px; color: #8dbeff; background-color: #8dbeff;border: 0">
+                        </div>
+                        <h3>Vue d'ensemble</h3>
+                        <p><span class="gros"></span>{{bien.introduction}}<span class="gros"></span></p>
+
+                    </div>
+                    <div class="basdroit">
+                        <div class="hrg">
+                            <hr style="width:200%;height: 1px; color: #8dbeff; background-color: #8dbeff;border: 0">
+                        </div>
+                        <h3>Détails</h3>
+                        <p><span class="gros"></span>{{bien.contenu}}<span class="gros"></span></p>
+
+                    </div>
+
+                </div>
+
+
+
+                <aside class="coteg">
+                    <section class="reservation">
+                        <form class="formreserv" method="GET">
+                            <p class="arrivee">
+                                <label>
+                                    Arrivée :<br>
+                                </label>
+                                <br>
+                                <input class="calendrier" value="Date d'arrivée" type="text" name="arrive">
+                            </p>
+                            <p class="arrivee">
+                                <label>
+                                    Départ :<br>
+                                </label>
+                                <br>
+                                <input class="calendrier" value="Date de départ" type="text" name="depart">
+                            </p>
+                            <p class="adulte">
+                                <label>
+                                    Adultes :<br>
+                                </label>
+                                <br>
+                                <select class="choix" value="" type="text" name="adultes">
+                                    <option value="1" selected="selected">1</option>
+                                    <option value="2" >2</option>
+                                    <option value="3" >3</option>
+                                    <option value="4" >4</option>
+                                </select>
+                            </p>
+                            <p class="adulte">
+                                <label>
+                                    Enfants :<br>
+                                </label>
+                                <br>
+                                <select class="choix" value="" type="text" name="adultes">
+                                    <option value="1" selected="selected">1</option>
+                                    <option value="2" >2</option>
+                                    <option value="3" >3</option>
+                                    <option value="4" >4</option>
+                                </select>
+                            </p>
+                            <p class="bouton">
+                                <button class="btn btn-outline-success my-2 my-sm-0 boutton" type="submit"  value="chercher">
+                                    Chercher
+                                </button>
+                            </p>
+                        </form>
+                    </section>
+                    <div class="hrg">
+                        <hr style="wce_lieuff; background-color: #8dbeff;border: 0;">
+                    </div>
+                    <h3>Galerie</h3>ce_lieu
+                    <section class="galerie">
+                      {#  {%if bien.photos|length > 4%}
+                            
+                        <img class="auto imagemo" src="{{vich_uploader_asset(bien.photos[0], 'imageFile')}}" >
+                        <img class="auto imagemo" src="{{vich_uploader_asset(bien.photos[1], 'imageFile')}}" >
+                        <img class="auto imagemo" src="{{vich_uploader_asset(bien.photos[2], 'imageFile')}}" >
+                        <img class="auto imagemo" src="{{vich_uploader_asset(bien.photos[3], 'imageFile')}}" >
+                        <img class="auto imagemo" src="{{vich_uploader_asset(bien.photos[4], 'imageFile')}}" >
+                        <img class="auto imagemo" src="{{vich_uploader_asset(bien.photos[5], 'imageFile')}}" >
+                                {%else%}
+                                #}
+                                    <img class="auto imagemo" src="/images/carre6.jpg" alt="communs">
+                                    <img class="auto imagemo" src="/images/carre5.jpg" alt="communs">
+                                    <img class="auto imagemo" src="/images/carre4.jpg" alt="communs">
+                                    <img class="auto imagemo" src="/images/carre2.jpg" alt="communs">
+                                    <img class="auto imagemo" src="/images/carre1.jpg" alt="communs">
+                                    <img class="auto imagemo" src="/images/carre3.jpg" alt="communs">
+                                
+
+                    </section>
+                    <div class="hrg">
+                        <hr style="width:100%;height: 1px; color: #8dbeff; background-color: #8dbeff;border: 0;">
+                    </div>    
+                    <h3 style="margin-bottom: 20px;">Prochains événements :</h3>
+                    <section class="">
+                        
+                           {%if bien.centreinterets| length >1 %}
+                        <a href="../loisirs/{{bien.centreinterets[1].slug}}-{{bien.centreinterets[1].id}}" class="lien">&Eacute;vénement musique</a><br>
+                        {%else%}
+                            <a href="#" class="lien">&Eacute;vénement musique</a><br>
+                           {%endif%}  
+                        {%if bien.centreinterets |length >2 %}
+                         <a href="../loisirs/{{bien.centreinterets[2].slug}}-{{bien.centreinterets[2].id}}" class="lien">&Eacute;vénement festif</a><br>   
+                        
+                        {%else%}
+                        <a href="#" class="lien">&Eacute;vénement festif</a><br>
+                         {%endif%}
+                         {%if bien.centreinterets |length >0 %}
+                        <a href="../loisirs/{{bien.centreinterets[0].slug}}-{{bien.centreinterets[0].id}}" class="lien">&Eacute;vénement arts</a><br>
+                        {%else%}
+                            
+                        <a href="#" class="lien">&Eacute;vénement arts</a><br>
+                        
+                        
+                         {%endif%}
+                         {%if bien.centreinterets |length >3 %}
+                         <a href="../loisirs/{{bien.centreinterets[3].slug}}-{{bien.centreinterets[3].id}}" class="lien">&Eacute;vénement festif</a><br>   
+                        
+                        {%else%}
+                        <a href="#" class="lien">&Eacute;vénement foire</a><br>
+                        {%endif%}
+                        <a href="#" class="lien">&Eacute;vénement sportif</a><br>
+
+
+                    </section>
+                    <div class="hrg">
+                        <hr style="width:100%;height: 1px; color: #8dbeff; background-color: #8dbeff;border: 0;">
+                    </div>    
+                    <h3 style="margin-bottom: 20px;">&Agrave; décourvrir :</h3>
+                    <section class="">
+                        <a href="#" class="lien">Villes</a><br>
+                        
+                        {% for interet in bien.proprio.interets %}
+                            <a href="{{path('ce_lieu',{'slug':interet.slug})}}" class="lien">Musées</a><br>
+                        {% endfor %}
+                        <a href="#" class="lien">Activiés sportives</a><br>
+
+
+
+                    </section> 
+                    <div class="hrg">
+                        <hr style="width:100%;height: 1px; color: #8dbeff; background-color: #8dbeff;border: 0;">
+                    </div>    
+                    <h3 style="margin-bottom: 20px;">Carte :</h3>
+
+                {#
+                    <section  style="margin-top: 30px;margin-bottom: 30px">
+                        <div id="map" style="width:100%;height: 300px" data-lat="{{bien.lat}}" data-lng="{{bien.lng}}">
+                    
+                    
+                        </div>
+                     </section> 
+                #}
+                </aside>
+            </div>
+
+
+
+        </div>
+
+        <div class="pied">
+            <div class="lienpied" style='margin-left: 10%'>
+                <h3 style='color: #e9e9e9'>Activités</h3>
+                <a href="#" class="lien">Loisirs de plein air</a><br>
+                <a href="#" class="lien">Campings</a><br>
+                <a href="#" class="lien">Hébergements</a><br>
+                <a href="#" class="lien">Marchés & Visites de fermes</a><br>
+            </div>
+            <div class="lienpied">
+                <h3 style='color: #e9e9e9'>Sur l'eau</h3>
+                <a href="#" class="lien">Location de bateaux</a><br>
+                <a href="#" class="lien">Jet Ski & Voilier</a><br>
+                <a href="#" class="lien">Kayak & Canoë</a><br>
+                <a href="#" class="lien">Plages locales</a><br>
+            </div>
+            <div class="lienpied">
+                <h3 style='color: #e9e9e9'>Evénements</h3>
+                <a href="#" class="lien">Événements à venir</a><br>
+                <a href="#" class="lien">Événement annuel</a><br>
+                <a href="#" class="lien">Soumettre un événement</a><br>
+                <a href="#" class="lien">Réunions</a><br>
+            </div>
+
+        </div>
+
+
+
+
+    {% endblock %}
+    {% block javascripts %}
+    
+        {{ encore_entry_script_tags('app') }}
+        <script src="{{ asset('build/app.js') }}"></script>
+        <!-- Renders app.js & a webpack runtime.js file
+                <script src="/build/runtime.js"></script>
+                <script src="/build/app.js"></script> -->
+         
+    
+      {% endblock %}

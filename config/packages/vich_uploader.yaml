@@ -22,6 +22,31 @@ vich_uploader:
             uri_prefix: /images/rappelfonds
             upload_destination: '%kernel.project_dir%/public/images/rappelfonds'
             namer: Vich\UploaderBundle\Naming\UniqidNamer
+        biens_regions:
+            uri_prefix: /images/regions
+            upload_destination: '%kernel.project_dir%/public/images/regions'
+            namer: Vich\UploaderBundle\Naming\UniqidNamer
+        biens_chambres:
+            uri_prefix: /images/chambres
+            upload_destination: '%kernel.project_dir%/public/images/chambres'
+            namer: Vich\UploaderBundle\Naming\UniqidNamer            
+        biens_communs:
+            uri_prefix: /images/communs
+            upload_destination: '%kernel.project_dir%/public/images/communs'
+            namer: Vich\UploaderBundle\Naming\UniqidNamer
+
+        interets_photo1:
+            uri_prefix: /images/interets1
+            upload_destination: '%kernel.project_dir%/public/images/interets1'
+            namer: Vich\UploaderBundle\Naming\UniqidNamer
+        interets_photo2:
+            uri_prefix: /images/interets2
+            upload_destination: '%kernel.project_dir%/public/images/interets2'
+            namer: Vich\UploaderBundle\Naming\UniqidNamer
+        interets_photo3:
+            uri_prefix: /images/interets3
+            upload_destination: '%kernel.project_dir%/public/images/interets3'
+            namer: Vich\UploaderBundle\Naming\UniqidNamer
     #mappings:
     #    products:
     #        uri_prefix: /images/products

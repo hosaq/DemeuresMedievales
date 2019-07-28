@@ -62,9 +62,54 @@ class AnnonceType extends AbstractType
                     'required' => false,
                     'label'=>"Image du bandeau de votre annonce",
                     'attr'=>[
-                        'placeholder'=>"Un fichier jpg ou jpeg de préférence, un pnp est aussi accepté."
+                        'placeholder'=>"Un fichier jpg ou jpeg de préférence, un png est aussi accepté."
                         ]
                 ])    
+            ->add('fondFile', FileType::class, [
+                    'required' => false,
+                    'label'=>"Image de fond de votre annonce",
+                    'attr'=>[
+                        'placeholder'=>"Un fichier jpg ou jpeg de préférence, un png est aussi accepté."
+                        ]
+                ])
+            ->add('logosFile', FileType::class, [
+                    'required' => false,
+                    'label'=>"Votre logo",
+                    'attr'=>[
+                        'placeholder'=>"Un fichier jpg ou jpeg de préférence, un png est aussi accepté."
+                        ]
+                ]) 
+                
+            ->add('rappelfondsFile', FileType::class, [
+                    'required' => false,
+                    'label'=>"Une image qui rappelle l'image de fond de votre annonce",
+                    'attr'=>[
+                        'placeholder'=>"Un fichier jpg ou jpeg de préférence, un png est aussi accepté."
+                        ]
+                ])    
+            ->add('regionsFile', FileType::class, [
+                    'required' => false,
+                    'label'=>"Une image de la région de votre bien",
+                    'attr'=>[
+                        'placeholder'=>"Un fichier jpg ou jpeg de préférence, un png est aussi accepté."
+                        ]
+                ])    
+            ->add('chambresFile', FileType::class, [
+                    'required' => false,
+                    'label'=>"L'image d'une des chambres de votre bien",
+                    'attr'=>[
+                        'placeholder'=>"Un fichier jpg ou jpeg de préférence, un png est aussi accepté."
+                        ]
+                ])    
+            ->add('communsFile', FileType::class, [
+                    'required' => false,
+                    'label'=>"L'image de la piéce de vie",
+                    'attr'=>[
+                        'placeholder'=>"Un fichier jpg ou jpeg de préférence, un png est aussi accepté."
+                        ]
+                ])    
+                 
+            
             ->add(
                 'images',
                 CollectionType::class,

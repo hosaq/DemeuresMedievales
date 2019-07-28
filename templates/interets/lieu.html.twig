@@ -1,0 +1,74 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">   
+    <link href="https://fonts.googleapis.com/css?family=Lora" rel="stylesheet"> 
+    <link rel="stylesheet" type="text/css" href="../css/loisir.css">
+    
+
+{% endblock %}
+{% block body %}
+
+    <div class="vignet2 mt-5" >
+                        <img src="{{vich_uploader_asset(loisir, 'photo2File')}}" class="vignett2" style="z-index: 10;" alt="image">
+    </div>
+    <div class="vignet3 mt-5" >
+                        <img src="{{vich_uploader_asset(loisir, 'photo3File')}}" class="vignett3"  style="z-index: 10;" alt="image">
+    </div>
+    
+    <div class="parent">
+        <div class="gauche " >
+            <img class="cellule1" src="{{vich_uploader_asset(loisir, 'photo1File')}}"  style='display:block ;'>
+            <img class="cellule2" src="{{vich_uploader_asset(loisir, 'photo2File')}}"  style='display: none;'>
+            <img class="cellule3" src="{{vich_uploader_asset(loisir, 'photo3File')}}"  style='display: none;'>
+        </div>
+        <div class="droit">
+            <h1>{{loisir.nom}} :</h1>
+
+            <p class="presentation">{{loisir.presentation}}</p>
+
+            <p class="description">{{loisir.description}}</p>
+            <div class="menu">
+                <div class="principal">
+                    <a href="#" class="lienmenu">Retour</a>
+                </div>
+                <div class="culture">
+                    <a href="#" class="lienmenu">Culturels</a>
+                </div>
+                <div class="villes">
+                    <a href="#" class="lienmenu">Villes</a>
+                </div>
+                <div class="paysages">
+                    <a href="#" class="lienmenu">Paysages</a>
+                </div>
+                <div class="festivals">
+                    <a href="#" class="lienmenu">Festivals</a>
+                </div>
+                <div class="nourritures">
+                    <a href="#" class="lienmenu">Commerciaux</a>
+                </div>
+                <div class="sportives">
+                    <a href="#" class="lienmenu">Sportifs</a>
+                </div>
+                <div class="autres">
+                    <a href="#" class="lienmenu">Autres</a>
+                </div>
+                
+            </div>
+
+        </div>   
+    </div>
+    
+        
+                
+                
+
+
+
+{% endblock %}
+    
+    {% block javascripts %}
+    <script src="/js/photointeret.js"></script>
+    
+        
+      {% endblock %}
