@@ -93,7 +93,7 @@
                         {%endif%}
 
                     </div>
-                    <p class="description">{{bien.contenu}}</p>
+                    <p class="description">{{bien.contenu|raw}}</p>
                     
                     <div style="background-color: #fff;width: 110%;margin-left: -10%;padding: 10%">
                         <div class="mosaique " >
@@ -154,7 +154,7 @@
                             <hr style="width:200%;height: 1px; color: #8dbeff; background-color: #8dbeff;border: 0">
                         </div>
                         <h3>Détails</h3>
-                        <p><span class="gros"></span>{{bien.contenu}}<span class="gros"></span></p>
+                        <p><span class="gros"></span>{{bien.contenu|raw}}<span class="gros"></span></p>
 
                     </div>
 
@@ -211,9 +211,9 @@
                         </form>
                     </section>
                     <div class="hrg">
-                        <hr style="wce_lieuff; background-color: #8dbeff;border: 0;">
+                        <hr style="wff; background-color: #8dbeff;border: 0;">
                     </div>
-                    <h3>Galerie</h3>ce_lieu
+                    <h3>Galerie</h3>
                     <section class="galerie">
                       {#  {%if bien.photos|length > 4%}
                             

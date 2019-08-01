@@ -54,6 +54,41 @@ class InteretsController extends AbstractController
     }
 
     /**
+     * modifie un centre d'interet
+     * 
+     * @Route("/interet/{slug}/editer", name="modifie_interet")
+     * @IsGranted("ROLE_USER")
+     */
+    public function modifierInteret(Request $request, ObjectManager $manager,Interets $interet){
+        
+
+        $form=$this->createForm(InteretsType::class,$interet);
+        $form->handleRequest($request);
+        
+        if($form->isSubmitted() && $form->isValid()){
+            
+            
+            $manager->persist($interet);
+            $manager->flush();
+            $this->addFlash(
+                'success',
+                "Votre centre d'intérêt <strong>{$interet->getNom()} </strong>a bien été modifié."
+            );
+            return $this->redirectToRoute('ce_lieu',[
+                'slug'=>$interet->getSlug()
+            ]);
+        }
+
+
+        return $this->render('interets/modifier.html.twig',[
+            'form'=>$form->createView(),
+            'loisir' => $interet
+        ]);
+
+
+    }
+
+    /**
      * montre un lieu d'interet
      * @Route("/lieu/{slug}", name="ce_lieu")
      * @return Response

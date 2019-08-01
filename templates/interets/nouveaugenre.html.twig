@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+{%block stylesheets %}
+    <link rel="stylesheet" type="text/css" href="/css/base.css">
+    <link rel="stylesheet" type="text/css" href="/build/bien.css">
+{% endblock %}
+{% block title %}Nouveau type d'intérêt{% endblock %}
+{% form_theme form '/elements/_formimages.html.twig' %}
+{% block body %}
+<div class="titre" style="background-image:url('/images/bandeaumoderne.jpg') ">
+    <div class="container">
+        <h1>Un lieu, un festival, une balade inédite, ...</h1>
+        
+        
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8 mb-3 px-5">
+            <h1>Entrez le type :</h1>
+            {{form_start(form)}}
+            {{form_widget(form)}}
+            <button class="btn btn-primary" type="submit">Créer cette fiche.
+            </button>
+            {{form_end(form)}}
+        </div>
+    </div>
+   
+</div>
+
+{% endblock %}
+
+
+
+{% block javascripts %}
+<script src='/js/ajoutimage.js'></script>
+{% endblock %}

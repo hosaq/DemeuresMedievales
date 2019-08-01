@@ -52,6 +52,7 @@ class Interets
 
     /**
      * @ORM\Column(type="string", length=128, nullable=true)
+     * @Assert\NotBlank()
      */
     private $type2;
 
@@ -156,6 +157,11 @@ class Interets
      * @ORM\JoinColumn(nullable=false)
      */
     private $createur;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Genresinterets", inversedBy="interets")
+     */
+    private $genresinterets;
 
     public function __construct()
     {
@@ -533,6 +539,18 @@ class Interets
     public function setCreateur(?user $createur): self
     {
         $this->createur = $createur;
+
+        return $this;
+    }
+
+    public function getGenresinterets(): ?Genresinterets
+    {
+        return $this->genresinterets;
+    }
+
+    public function setGenresinterets(?Genresinterets $genresinterets): self
+    {
+        $this->genresinterets = $genresinterets;
 
         return $this;
     }

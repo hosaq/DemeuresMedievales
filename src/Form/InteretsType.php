@@ -3,11 +3,18 @@
 namespace App\Form;
 
 use App\Entity\Interets;
+use App\Entity\Genresinterets;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+
 
 
 class InteretsType extends AbstractType
@@ -17,6 +24,14 @@ class InteretsType extends AbstractType
         $builder
             ->add('nom')
             ->add('lien')
+            ->add('genresinterets', EntityType::class, [
+                'label' =>'Catégorie',
+                'class' =>'App\Entity\Genresinterets',
+                'placeholder'=>'Sélectionnez une catégorie',
+                'mapped'=> false,
+                'required' => false
+                    
+                ])
             ->add('type1', ChoiceType::class, [
                 'label' =>'Type1',
                 'required' => false,
@@ -31,11 +46,8 @@ class InteretsType extends AbstractType
                     
                 ]
             ])
-            ->add('type2', ChoiceType::class, [
-                'label' =>'Type2',
-                'required' => false
-                
-                ])
+            
+            
             ->add('presentation')
             ->add('description')
             ->add('adresse')   
@@ -55,6 +67,27 @@ class InteretsType extends AbstractType
                 'required' => false
             ])
         ;
+
+        $builder->get('genresinterets')->addEventListener(
+            FormEvents::POST_SUBMIT,
+            function (FormEvent $event) {
+               $form=$event->getForm();
+               $form->getParent()->add('type2', ChoiceType::class, [
+                'label' =>'Type2',
+                'required' => false,
+                'choices' => [
+                    'Festival'=> 'Festival',
+                    'Culturels'=>'Culturels' ,
+                    'Commerciaux'=>'Commerciaux',
+                    'Villes'=>'Villes',
+                    'Sportifs'=>'Sportifs',
+                    'Paysages'=> 'Paysages',
+                    'Autres'=> 'Autres'
+                    ]
+                ]);
+                dump($event->getForm()->getData());
+            }
+        );
     }
 
     public function configureOptions(OptionsResolver $resolver)
