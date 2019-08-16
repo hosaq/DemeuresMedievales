@@ -56,7 +56,7 @@ class InteretsController extends AbstractController
     /**
      * modifie un centre d'interet
      * 
-     * @Route("/interet/{slug}/editer", name="modifie_interet")
+     * @Route("/lieu/{slug}/editer", name="modifie_interet")
      * @IsGranted("ROLE_USER")
      */
     public function modifierInteret(Request $request, ObjectManager $manager,Interets $interet){

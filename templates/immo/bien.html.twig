@@ -35,6 +35,7 @@
             par nuit
         </p>
         <a class="btn btn-primary btn-arrondi" href="{{path('reservation_creer',{'slug':bien.slug})}}">Réserver !</a>
+        <a class="btn btn-success btn-arrondi" href="{{path('cette_annonce_details',{'slug':bien.slug})}}">Détails !</a>
         {% if bien.proprio is same as(app.user) %}
             <a href="{{path('modifier_annonce',{slug:bien.slug})}}" 
             class="btn btn-warning btn-arrondi">Modifier cette annonce</a>

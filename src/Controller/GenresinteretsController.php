@@ -12,6 +12,8 @@ use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use PhpParser\Node\Expr\Cast\Array_;
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
 
 class GenresinteretsController extends AbstractController
 {
@@ -51,6 +53,36 @@ class GenresinteretsController extends AbstractController
 
     }
 
+    /**
+     * recherche les tags d'un genre par ajax
+     * 
+     * @Route("/genre/tags/{id}", name="genre_tags")
+     *  
+     */
+    public function tag(ObjectManager $manager,Request $request,Genresinterets $genre):Response{
+        
+        
+        
+        $tags=$genre->getTags();
+        
+        foreach ( $tags as $number=>$tag){
+            $indicetag[]= $tag->getId();
+            
+        }
+       
+    
+        
+        $indicetags=json_encode($indicetag);
+        /*
+        dump($terme);
+        dump($termes);
+        die();*/
+        return $this->json([
+            'tags'=>$indicetags
+        ],200);
+
+
+    }
     
 
 }

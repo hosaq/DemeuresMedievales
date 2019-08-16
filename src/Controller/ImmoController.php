@@ -182,19 +182,13 @@ class ImmoController extends AbstractController
         
         
         $introj = $request->getContent();
-        /**$this->addFlash(
-            'success',
-            "Pour enregistrer cette introduction : <br>
-            - copier le texte, <br>
-            - ouvrez modifier cette annonce, <br>
-            - collez ce texte dans la rubrique Introduction."
-        );
+        
         
         $intro=json_decode($introj, true);
         $annonce->setIntroduction($intro['intro']);
         $manager->persist($annonce);
         $manager->flush();
-        */
+        
 
         return $this->json([
             'code'=>200,'message'=>$introj
@@ -214,6 +208,10 @@ class ImmoController extends AbstractController
         
         
         $contenuj = $request->getContent();
+        $contenu=json_decode($contenuj, true);
+        $annonce->setContenu($contenu['contenu']);
+        $manager->persist($annonce);
+        $manager->flush();
         
         return $this->json([
             'code'=>200,'message'=>$contenuj

@@ -3,35 +3,36 @@
     <link rel="stylesheet" type="text/css" href="/css/base.css">
     <link rel="stylesheet" type="text/css" href="/build/bien.css">
 {% endblock %}
-{% block title %}Nouveau type d'intérêt{% endblock %}
+{% block title %}Nouveau Tag{% endblock %}
 {% form_theme form '/elements/_formimages.html.twig' %}
 {% block body %}
 <div class="titre" style="background-image:url('/images/bandeaumoderne.jpg') ">
     <div class="container">
-        <h1>Un lieu, un festival, une balade inédite, ...</h1>
+        <h1>Rock, danse, rap, ...</h1>
         
         
     </div>
 </div>
-<div class="container">
+<div class="container formulaire">
     <div class="row">
         <div class="col-md-2"></div>
         <div class="col-md-8 mb-3 px-5">
-            <h1>Entrez le type :</h1>
+            <h1>Entrez votre tag :</h1>
             {{form_start(form)}}
             {{form_widget(form)}}
-            <button class="btn btn-primary" type="submit">Créer ce genre.
+            <button class="btn btn-primary" type="submit">Créer cette fiche.
             </button>
             {{form_end(form)}}
         </div>
     </div>
    
 </div>
-
+<a href="{{ path('tag_index') }}">back to list</a>
 {% endblock %}
 
 
 
 {% block javascripts %}
-<script src='/js/ajoutimage.js'></script>
+
 {% endblock %}
+

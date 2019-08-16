@@ -14,6 +14,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 
 
 
@@ -24,30 +25,6 @@ class InteretsType extends AbstractType
         $builder
             ->add('nom')
             ->add('lien')
-            ->add('genresinterets', EntityType::class, [
-                'label' =>'Catégorie',
-                'class' =>'App\Entity\Genresinterets',
-                'placeholder'=>'Sélectionnez une catégorie',
-                'mapped'=> false,
-                'required' => false
-                    
-                ])
-            ->add('type1', ChoiceType::class, [
-                'label' =>'Type1',
-                'required' => false,
-                'choices' => [
-                    'Festival'=> 'Festival',
-                    'Culturels'=>'Culturels' ,
-                    'Commerciaux'=>'Commerciaux',
-                    'Villes'=>'Villes',
-                    'Sportifs'=>'Sportifs',
-                    'Paysages'=> 'Paysages',
-                    'Autres'=> 'Autres'
-                    
-                ]
-            ])
-            
-            
             ->add('presentation')
             ->add('description')
             ->add('adresse')   
@@ -66,28 +43,44 @@ class InteretsType extends AbstractType
             ->add('photo3File', FileType::class, [
                 'required' => false
             ])
+            ->add('genresinterets', EntityType::class, [
+                'label' =>'Catégorie',
+                'class' =>'App\Entity\Genresinterets',
+                'placeholder'=>'Sélectionnez une catégorie',
+                'mapped'=> true,
+                'required' => false
+                    
+                ])
+            ->add('type2', EntityType::class, [
+                'label' =>'Tag',
+                'required' => false,
+                'mapped'=> true,
+                'class' => 'App\Entity\Tag',
+                'placeholder'=>'Sélectionnez un tag',
+                ])
+            
         ;
 
-        $builder->get('genresinterets')->addEventListener(
+        /*$builder->get('genresinterets')->addEventListener(
             FormEvents::POST_SUBMIT,
             function (FormEvent $event) {
-               $form=$event->getForm();
-               $form->getParent()->add('type2', ChoiceType::class, [
-                'label' =>'Type2',
-                'required' => false,
-                'choices' => [
-                    'Festival'=> 'Festival',
-                    'Culturels'=>'Culturels' ,
-                    'Commerciaux'=>'Commerciaux',
-                    'Villes'=>'Villes',
-                    'Sportifs'=>'Sportifs',
-                    'Paysages'=> 'Paysages',
-                    'Autres'=> 'Autres'
-                    ]
-                ]);
-                dump($event->getForm()->getData());
+                
+                $form=$event->getForm();
+                dump($form->getData());
+                $form->getParent()
+                    ->add('type2', EntityType::class, [
+                        'label' =>'Type2',
+                        'required' => false,
+                        'mapped'=> true,
+                        'class' => 'App\Entity\Tag',
+                        'choices'=>$form->getData()->getTags()
+                        ])
+                        
+                    ;
+                //dump($event->getForm()->getData());
             }
-        );
+        );*/
+        
     }
 
     public function configureOptions(OptionsResolver $resolver)

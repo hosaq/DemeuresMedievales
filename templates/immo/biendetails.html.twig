@@ -15,7 +15,7 @@
 {% endblock %}
 {% block body %}
     {%if bien.fond %}
-        <body style='background-image: url("{{vich_uploader_asset(bien, 'fondFile')}}");'>
+        <body style='background-image: url("{{vich_uploader_asset(bien, 'fondFile')}}");background-size: contain;'>
         {%else%}
         <body style='background-image: url("/images/orage.jpg");'>
 
@@ -27,7 +27,7 @@
                 <div class="las auto logo">
                     <div style="display: inline-block;float: left;padding: 0.7em" >
                         {%if bien.larges %}
-                            <img src="{{vich_uploader_asset(bien, 'logosFile')}}" alt="logo">
+                            <img src="{{vich_uploader_asset(bien, 'logosFile')}}" alt="logo" class="logos">
                         {%else%}
                             <img class="auto" src="/images/logo2.jpg" alt="logo">
                         {%endif%}
@@ -40,7 +40,7 @@
                 <div class="las initial"></div>
 
             </div>
-
+            {#
              <nav class="navbar navbar-expand-lg navbar-light bg-light" style="display:flex;background-color: #28292a !important;">
 
 
@@ -71,7 +71,8 @@
                      </form>
                 </div>
             </nav>
-           
+           #}
+           {%include "menus/menunoir.html.twig"%}
             <div class="imageprincipale flex-containe" >
                 {%if bien.larges %}
                     <img class="auto" src="{{vich_uploader_asset(bien, 'largesFile')}}" alt="imagelarge">
@@ -129,7 +130,7 @@
                     </div>
                     <div class="comment">
                         <p><span class="gros">“ </span>{{bien.introduction}}<span class="gros"> “</span></p>
-                        <p style="font-weight: 600;font-family: Ubuntu, sans-serif;">&mdash; Gilbert Gall</p>
+                        <p style="font-weight: 600;font-family: Ubuntu, sans-serif;">&mdash; {{bien.proprio.identite}}</p>
                         <a href="#" class="afte">
                             {%if bien.proprio %}
                                     <img class="ronde" src="{{bien.proprio.avatar}}">
@@ -277,7 +278,7 @@
                         <a href="#" class="lien">Villes</a><br>
                         
                         {% for interet in bien.proprio.interets %}
-                            <a href="{{path('ce_lieu',{'slug':interet.slug})}}" class="lien">Musées</a><br>
+                            <a href="{{path('ce_lieu',{'slug':interet.slug})}}" class="lien">{{interet.type2}}</a><br>
                         {% endfor %}
                         <a href="#" class="lien">Activiés sportives</a><br>
 

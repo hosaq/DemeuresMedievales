@@ -28,9 +28,15 @@ class Genresinterets
      */
     private $interets;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Tag", mappedBy="genreinteret")
+     */
+    private $tags;
+
     public function __construct()
     {
         $this->interets = new ArrayCollection();
+        $this->tags = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -84,5 +90,36 @@ class Genresinterets
     public function __toString()
     {
         return $this->nom;
+    }
+
+    /**
+     * @return Collection|Tag[]
+     */
+    public function getTags(): Collection
+    {
+        return $this->tags;
+    }
+
+    public function addTag(Tag $tag): self
+    {
+        if (!$this->tags->contains($tag)) {
+            $this->tags[] = $tag;
+            $tag->setGenreinteret($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTag(Tag $tag): self
+    {
+        if ($this->tags->contains($tag)) {
+            $this->tags->removeElement($tag);
+            // set the owning side to null (unless already changed)
+            if ($tag->getGenreinteret() === $this) {
+                $tag->setGenreinteret(null);
+            }
+        }
+
+        return $this;
     }
 }

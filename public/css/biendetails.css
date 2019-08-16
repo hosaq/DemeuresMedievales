@@ -84,7 +84,13 @@ body, button, input, select, optgroup, textarea {
     padding:0.3em 1em;
     margin-right: 5em;
 }
+.logos{
 
+    height: 80px;
+    background-color: #8dbeff;
+
+    
+}
 .initial{
     flex: initial;
 }
@@ -327,7 +333,7 @@ h3{
     background: #7babff;
     border-radius: 100%;
     position: absolute;
-    bottom: 8.9%;
+    bottom: 20%;
     font-weight: 400;
     right: 0;
     -webkit-transform: translateY(-50%) translateX(40%);
@@ -389,4 +395,8 @@ h3{
     font-weight: 1000;
     line-height: 2.2em;
     font-family: ubuntu,serif;
+}
+.my-2{
+    background-color: #8dbeff;
+    color: #eee;
 }

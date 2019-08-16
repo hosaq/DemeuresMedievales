@@ -24,7 +24,25 @@
         <div class="col-md-8 mb-3 px-5">
             <h1>Entrez la description de ce centre d'intérêt :</h1>
             {{form_start(form)}}
-            {{form_widget(form)}}
+            {{form_row(form.nom)}}
+            {{form_row(form.genresinterets)}}
+            {{form_row(form.type2)}}
+            {{form_row(form.lien)}}
+            {{form_row(form.presentation)}}
+            {{form_row(form.description)}}
+            {{form_row(form.adresse)}}
+            {{form_row(form.pays)}}
+            {{form_row(form.ville)}}
+            {{form_row(form.code_postal)}}
+            {{form_row(form.region)}}
+            {{form_row(form.lat)}}
+            {{form_row(form.lng)}}
+            {{form_row(form.photo1File)}}
+            {{form_row(form.photo2File)}}
+            {{form_row(form.photo3File)}}
+            
+            
+            
             <button class="btn btn-primary" type="submit">Créer cette fiche.
             </button>
             {{form_end(form)}}
@@ -38,5 +56,118 @@
 
 
 {% block javascripts %}
-<script src='/js/ajoutimage.js'></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script>
+
+
+
+function choixtag(event){
+    
+    if(this.options[this.selectedIndex].text== "Sélectionnez une catégorie"){
+        let selecte=document.getElementById('interets_type2');
+        let optactu=selecte.getElementsByTagName('option');    
+        let opt=listecopy.listTags;
+        
+        
+        limite=optactu.length;
+        for(let i=1; i<limite;i++){
+            selecte.options.remove(1);
+        }
+        console.log("sortie");
+        return;
+    }
+    else{
+        let selecte=document.getElementById('interets_type2');
+        let optactu=selecte.getElementsByTagName('option');    
+        let opt=listecopy.listTags;
+        
+        
+        limite=optactu.length;
+        for(let i=1; i<limite;i++){
+            selecte.options.remove(1);
+        }
+        
+        for( option of opt){
+            
+            selecte.options[selecte.options.length]=option;
+            //console.log(selecte.options[selecte.options.length]);
+        }
+        
+    }
+    
+    event.preventDefault();
+    const genre=this.value;
+    
+    
+    axios.get('/genre/tags/'+genre)
+        .then(function(response){
+            //para=init();
+            
+            let indicetags=JSON.parse(response.data.tags);
+            
+            var longueur=indicetags.length;
+            fin=indicetags[0]+longueur;
+            
+
+            let selecte=document.getElementById('interets_type2');
+            
+            let opt=listecopy.listTags;
+            //let opt=selecte.getElementsByTagName('option');
+            
+            limite=opt.length;
+            
+            
+            
+            for( option of opt){
+                
+                nb=parseInt(option.value);
+                if(indicetags.includes(nb)){
+                    nbb=nb;
+                    indiceenleve=option.value;
+                    
+                    for(let i=1; i<nb;i++){
+                        selecte.options.remove(1);
+                    }
+                    for(let j=longueur+1; j<=limite-nb+1;j++){
+                        selecte.options.remove(longueur+1);
+                    }
+                    break;
+                    
+                }
+                
+            }
+            
+            
+            //cacher.classList.remove('vue');
+            //cacher.classList.add('nonvue');
+  
+            
+        
+    });
+    
+    
+}
+
+function OptionL(htmllist){
+    this.listTags=htmllist;
+}
+var selection=document.getElementById('interets_type2');
+const list=selection.getElementsByTagName('option');
+const listinitiale= new OptionL(list);
+
+const listc=[...list];
+var listecopy = Object.assign({},listinitiale);
+listecopy.listTags=listc;
+
+let selecte=document.getElementById('interets_type2');
+let optactu=selecte.getElementsByTagName('option');    
+let opt=listecopy.listTags;
+limite=optactu.length;
+for(let i=1; i<limite;i++){
+    selecte.options.remove(1);
+}
+        
+document.querySelector('#interets_genresinterets').onchange=choixtag;
+
+//<script src='/js/ajoutimage.js'></script>
 {% endblock %}
