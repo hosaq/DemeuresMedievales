@@ -400,3 +400,6 @@ h3{
     background-color: #8dbeff;
     color: #eee;
 }
+.avatar-mini{
+    max-width: 48px;
+}

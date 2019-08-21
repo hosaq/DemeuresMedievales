@@ -1,0 +1,91 @@
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light" style="display:flex;background-color: #28292a !important;">
+    <div class="collapse navbar-collapse flex-containe" id="navbarTogglerDemo03">
+        <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+            <li class="nav-item active four" style="width: 650px;"></li>
+
+            <li class="nav-item active ">
+                <a class="nav-link trait" style="color: #eae9e8 !important;" href="{{path('homepage')}}">Accueil<span class="sr-only">(current)</span>
+                </a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" style="color: #eae9e8 !important;" href="{{path('les_annonces')}}">Acheter
+                    <span class="sr-only">(current)</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" style="color: #eae9e8 !important;" href="{{path('homepage')}}">Vendre</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link disabled" href="#" style="color: #eae9e8 !important;">Louer</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link disabled" href="#" style="color: #eae9e8 !important;">Mettre en location</a>
+            </li>
+        </ul>
+        <ul class="navbar-nav ml-auto">
+            {% if app.user %}
+            
+            <li class="nav-item dropdown">
+                <a href="#" id="ouvrir" class="nav-link dropdown-toggle" data-toggle="dropdown" style="color:#e98753;">
+                    <img src="{{app.user.avatar}}" alt="{{app.user.identite}}" 
+                    class="avatar avatar-mini ronde mr-2">{{app.user.identite}}
+                </a>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="ouvrir">
+
+                    {% for role in  app.user.userRoles %}
+                        {% if 'ROLE_ADMIN'==role.titre %}
+                            <a href="{{path('admin_connexion')}}" 
+                            class="dropdown-item">Administrer
+                            </a>
+                            <div class="dropdown-divider"></div>
+                        {% endif %}
+                    {% endfor %}
+                    
+                        {% if app.user.immos is not empty %}
+                            <a href="{{path('mes_annonces')}}" 
+                            class="dropdown-item">Gérer mes annonces
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            <a href="{{path('reservations_de_mes_biens')}}" 
+                            class="dropdown-item">Réservations de mes biens
+                            </a>
+                            <div class="dropdown-divider"></div>
+                        {% endif %}
+                    
+                    <a href="{{path('nouveau_bien')}}" 
+                     class="dropdown-item">Créer une annonce
+                    </a>
+                    <div class="dropdown-divider"></div>
+                    <a href="{{path('les_reservations',{slug:app.user.slug})}}"
+                     class="dropdown-item">Mes réservations
+                    </a>
+                    <div class="dropdown-divider"></div>
+                    <a href="{{path('membre_afficher',{slug:app.user.slug})}}" 
+                     class="dropdown-item">Ma page
+                    </a>
+                    <a href="{{path('modifier_compte')}}" 
+                     class="dropdown-item">Modifier mon profil
+                    </a>
+                    <a href="{{path('modification_mdp')}}" 
+                     class="dropdown-item">Changer de mot de passe
+                    </a>
+                    <div class="dropdown-divider"></div>
+                    <a href="{{path('connexion_logout')}}"  class="dropdown-item">Me déconnecter</a>
+            
+                </div>
+            </li>
+
+            
+            
+            {% else %}
+            <li class="nav-item">
+            <a href="{{path('connexion_enregistrer')}}" style="color: #02B875 !important;" class="nav-link">S'inscrire</a>
+            </li>
+            <li class="nav-item">
+            <a href="{{path('connexion_login')}}" style="color: #ffa953 !important;" class="nav-link">Connexion</a>
+            </li>
+            {% endif %}
+        </form>#}
+    </div>
+</nav>
