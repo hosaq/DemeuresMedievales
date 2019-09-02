@@ -3,7 +3,7 @@
 {% block stylesheets %}
     <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">   
     <link href="https://fonts.googleapis.com/css?family=Lora" rel="stylesheet"> 
-    <link rel="stylesheet" type="text/css" href="../css/loisir.css">
+    <link rel="stylesheet" type="text/css" href="/css/loisir.css">
     
 
 {% endblock %}
@@ -23,14 +23,18 @@
             <img class="cellule3" src="{{vich_uploader_asset(loisir, 'photo3File')}}"  style='display: none;'>
         </div>
         <div class="droit">
-            <h1>{{loisir.nom}} :</h1>
+            <a href="{{loisir.lien}}" target="_blank" style="text-decoration: none;"><h1>{{loisir.nom}} :</h1></a>
 
             <p class="presentation">{{loisir.presentation}}</p>
 
             <p class="description">{{loisir.description}}</p>
             <div class="menu">
                 <div class="principal">
-                    <a href="#" class="lienmenu">Retour</a>
+                {% if page==2 %}
+                    <a href="{{path('cette_annonce_interets',{'slug':slugBien})}}" class="lienmenu">Retour</a>
+                {% elseif page==1 %}
+                    <a href="{{path('cette_annonce_details',{'slug':slugBien})}}" class="lienmenu">Retour</a>
+                {% endif %}
                 </div>
                 <div class="culture">
                     <a href="#" class="lienmenu">Culturels</a>

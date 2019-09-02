@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Immo;
 use App\Entity\Interets;
 use App\Form\InteretsType;
 use App\Repository\InteretsRepository;
@@ -97,6 +98,22 @@ class InteretsController extends AbstractController
     {
         return $this->render('interets/lieu.html.twig', [
             'loisir' => $lieu,
+        ]);
+    }
+
+    /**
+     * montre un lieu d'interet
+     * @Route("/lieu/{idLieu}/{slugBien}/{page}", name="ce_lieu_annonce")
+     * @return Response
+     */
+    public function lieu_annonce($idLieu,$slugBien,$page,InteretsRepository $repository)
+    {
+        $lieu=$repository->findOneBy(['id' => $idLieu]);
+        
+        return $this->render('interets/lieu.html.twig', [
+            'loisir' => $lieu,
+            'slugBien'=> $slugBien,
+            'page'=>$page,
         ]);
     }
 

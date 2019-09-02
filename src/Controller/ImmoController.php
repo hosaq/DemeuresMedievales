@@ -66,6 +66,18 @@ class ImmoController extends AbstractController
             'bien' => $bien,
         ]);
     }
+
+    /**
+     * montre une annonce avec images interets
+     * @Route("/annonce/{slug}/interets", name="cette_annonce_interets")
+     * @return Response
+     */
+    public function annonceinterets(Immo $bien)
+    {
+        return $this->render('immo/bieninterets.html.twig', [
+            'bien' => $bien,
+        ]);
+    }
     
     /**
      * creer une annonce

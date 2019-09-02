@@ -382,7 +382,7 @@ class Interets
     }
 
      /**
-     * @return Collection|Immo[]
+     * @return Collection|Immos[]
      */
     public function getImmos(): Collection
     {

@@ -1,0 +1,27 @@
+<div class="principal mb-5">
+    <div class=" bg-light bg-3">
+        <div class="card-header text-center">
+            <p class="mb-2">3 chambres,
+            <strong>{{bien.prix}}€ / nuit</strong><br></p>
+            {% if bien.commentaires|length >0 %}
+                {% include 'elements/notation.html.twig' with {'note': bien.moyenne } %}
+            {% else %}
+                <small>Pas encore noté</small>
+            {% endif %}
+            {% if bien.larges  %}
+                {% set large= vich_uploader_asset(bien, 'largesFile') %}
+            {% else %}
+                {% set large= bien.imageLarge %}
+            {% endif %}
+            <a  href="{{path('cette_annonce',{'slug':bien.slug})}}"><img alt="image de l'appartement" class="imageappart mt-3" src="{{large}}"></a>
+            <div class="carte">
+                <h4 class="mt-3">
+                    {{bien.titre}}
+                    
+                </h4>
+                <p class="">{{bien.introduction}}</p>
+               
+            </div>
+        </div>
+    </div>
+</div>

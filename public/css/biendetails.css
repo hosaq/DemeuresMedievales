@@ -226,25 +226,14 @@ select{
     width: 100%;
     background-color: #8dbeff;
     border-radius: 0;
-    border-color: #8dbeff;
+    border-color: #82c0ff;
     height: 50px;
     font-family: ubuntu,serif;
     font-size: 1.2rem;
-    color: #fafafa; 
+    color: #eee; 
 }
 .my-2{
     background-color: #addeff;
-}
-.boutton{
-    margin-top: 50px;
-    width: 100%;
-    background-color: #8dbeff;
-    border-radius: 0;
-    border-color: #8dbeff;
-    height: 50px;
-    font-family: ubuntu,serif;
-    font-size: 1.2rem;
-    color: #fafafa; 
 }
 .calendrier{
     background-color: #f8f8f8;

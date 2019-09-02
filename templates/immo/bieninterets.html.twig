@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+{%block stylesheets %}
+    <link rel="stylesheet" type="text/css" href="/css/immointerets.css">
+{% endblock %}
+{% block title %}Demeures Médiévales-Nos demeures{% endblock %}
+
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+
+
+<div class="container">
+    <!--<h2 class="mt-5 center">{{bien.titre}}</h2>-->
+    <div class="disposition mt-5">
+        {% include '/elements/carteimmointerets.html.twig'%}
+        {% set i=4 %}
+        {% for interet in bien.proprio.interets %}
+             {% set h=random(1,3) %}
+            <div class="a{{loop.index}}">
+                <a href="{{path('ce_lieu_annonce',{'idLieu':interet.id,'slugBien':bien.slug,'page':2})}}" style="text-decoration: none;">  
+                <h4 class="titre{{loop.index}}">{{interet.nom}}</h4>
+                </a>
+                <img class="tourne{{loop.index}}" src="{{vich_uploader_asset(interet, 'photo'~h~'File')}}" >
+                 
+            </div>
+           
+        {% endfor %}
+        
+    </div>
+    
+</div>
+
+{% endblock %}

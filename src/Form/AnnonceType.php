@@ -108,7 +108,15 @@ class AnnonceType extends AbstractType
                         'placeholder'=>"Un fichier jpg ou jpeg de préférence, un png est aussi accepté."
                         ]
                 ])    
-                 
+            
+            ->add('pictureFiles', FileType::class, [
+                    'required' => false,
+                    'multiple' => true,
+                    'label'=>"Autres images",
+                    'attr'=>[
+                        'placeholder'=>"Choisissez plusieurs images jpg ou jpeg de préférence."
+                        ]
+            ])
             
             ->add(
                 'images',
